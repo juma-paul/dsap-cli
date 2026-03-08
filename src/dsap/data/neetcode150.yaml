@@ -1,0 +1,796 @@
+# NeetCode 150 - Comprehensive LeetCode Problems for Coding Interviews
+# Curated by NeetCode (https://neetcode.io)
+# Extends Blind 75 with additional essential problems
+
+metadata:
+  name: "NeetCode 150"
+  description: "Extended 150 essential LeetCode problems organized by pattern"
+  source: "NeetCode.io"
+  total_problems: 150
+
+categories:
+  - name: "Arrays & Hashing"
+    problems:
+      - title: "Contains Duplicate"
+        url: "https://leetcode.com/problems/contains-duplicate/"
+        difficulty: "Easy"
+        tags: ["array", "hash-table"]
+
+      - title: "Valid Anagram"
+        url: "https://leetcode.com/problems/valid-anagram/"
+        difficulty: "Easy"
+        tags: ["string", "hash-table", "sorting"]
+
+      - title: "Two Sum"
+        url: "https://leetcode.com/problems/two-sum/"
+        difficulty: "Easy"
+        tags: ["array", "hash-table"]
+
+      - title: "Group Anagrams"
+        url: "https://leetcode.com/problems/group-anagrams/"
+        difficulty: "Medium"
+        tags: ["string", "hash-table", "sorting"]
+
+      - title: "Top K Frequent Elements"
+        url: "https://leetcode.com/problems/top-k-frequent-elements/"
+        difficulty: "Medium"
+        tags: ["array", "hash-table", "heap"]
+
+      - title: "Product of Array Except Self"
+        url: "https://leetcode.com/problems/product-of-array-except-self/"
+        difficulty: "Medium"
+        tags: ["array", "prefix-sum"]
+
+      - title: "Valid Sudoku"
+        url: "https://leetcode.com/problems/valid-sudoku/"
+        difficulty: "Medium"
+        tags: ["array", "hash-table", "matrix"]
+
+      - title: "Encode and Decode Strings"
+        url: "https://leetcode.com/problems/encode-and-decode-strings/"
+        difficulty: "Medium"
+        tags: ["string", "design"]
+
+      - title: "Longest Consecutive Sequence"
+        url: "https://leetcode.com/problems/longest-consecutive-sequence/"
+        difficulty: "Medium"
+        tags: ["array", "hash-table", "union-find"]
+
+  - name: "Two Pointers"
+    problems:
+      - title: "Valid Palindrome"
+        url: "https://leetcode.com/problems/valid-palindrome/"
+        difficulty: "Easy"
+        tags: ["string", "two-pointers"]
+
+      - title: "Two Sum II"
+        url: "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/"
+        difficulty: "Medium"
+        tags: ["array", "two-pointers", "binary-search"]
+
+      - title: "3Sum"
+        url: "https://leetcode.com/problems/3sum/"
+        difficulty: "Medium"
+        tags: ["array", "two-pointers", "sorting"]
+
+      - title: "Container With Most Water"
+        url: "https://leetcode.com/problems/container-with-most-water/"
+        difficulty: "Medium"
+        tags: ["array", "two-pointers", "greedy"]
+
+      - title: "Trapping Rain Water"
+        url: "https://leetcode.com/problems/trapping-rain-water/"
+        difficulty: "Hard"
+        tags: ["array", "two-pointers", "dynamic-programming"]
+
+  - name: "Sliding Window"
+    problems:
+      - title: "Best Time to Buy and Sell Stock"
+        url: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/"
+        difficulty: "Easy"
+        tags: ["array", "dynamic-programming"]
+
+      - title: "Longest Substring Without Repeating Characters"
+        url: "https://leetcode.com/problems/longest-substring-without-repeating-characters/"
+        difficulty: "Medium"
+        tags: ["string", "sliding-window", "hash-table"]
+
+      - title: "Longest Repeating Character Replacement"
+        url: "https://leetcode.com/problems/longest-repeating-character-replacement/"
+        difficulty: "Medium"
+        tags: ["string", "sliding-window"]
+
+      - title: "Permutation in String"
+        url: "https://leetcode.com/problems/permutation-in-string/"
+        difficulty: "Medium"
+        tags: ["string", "sliding-window", "hash-table"]
+
+      - title: "Minimum Window Substring"
+        url: "https://leetcode.com/problems/minimum-window-substring/"
+        difficulty: "Hard"
+        tags: ["string", "sliding-window", "hash-table"]
+
+      - title: "Sliding Window Maximum"
+        url: "https://leetcode.com/problems/sliding-window-maximum/"
+        difficulty: "Hard"
+        tags: ["array", "sliding-window", "deque", "heap"]
+
+  - name: "Stack"
+    problems:
+      - title: "Valid Parentheses"
+        url: "https://leetcode.com/problems/valid-parentheses/"
+        difficulty: "Easy"
+        tags: ["string", "stack"]
+
+      - title: "Min Stack"
+        url: "https://leetcode.com/problems/min-stack/"
+        difficulty: "Medium"
+        tags: ["stack", "design"]
+
+      - title: "Evaluate Reverse Polish Notation"
+        url: "https://leetcode.com/problems/evaluate-reverse-polish-notation/"
+        difficulty: "Medium"
+        tags: ["array", "stack", "math"]
+
+      - title: "Generate Parentheses"
+        url: "https://leetcode.com/problems/generate-parentheses/"
+        difficulty: "Medium"
+        tags: ["string", "backtracking", "stack"]
+
+      - title: "Daily Temperatures"
+        url: "https://leetcode.com/problems/daily-temperatures/"
+        difficulty: "Medium"
+        tags: ["array", "stack", "monotonic-stack"]
+
+      - title: "Car Fleet"
+        url: "https://leetcode.com/problems/car-fleet/"
+        difficulty: "Medium"
+        tags: ["array", "stack", "monotonic-stack"]
+
+      - title: "Largest Rectangle in Histogram"
+        url: "https://leetcode.com/problems/largest-rectangle-in-histogram/"
+        difficulty: "Hard"
+        tags: ["array", "stack", "monotonic-stack"]
+
+  - name: "Binary Search"
+    problems:
+      - title: "Binary Search"
+        url: "https://leetcode.com/problems/binary-search/"
+        difficulty: "Easy"
+        tags: ["array", "binary-search"]
+
+      - title: "Search a 2D Matrix"
+        url: "https://leetcode.com/problems/search-a-2d-matrix/"
+        difficulty: "Medium"
+        tags: ["array", "binary-search", "matrix"]
+
+      - title: "Koko Eating Bananas"
+        url: "https://leetcode.com/problems/koko-eating-bananas/"
+        difficulty: "Medium"
+        tags: ["array", "binary-search"]
+
+      - title: "Find Minimum in Rotated Sorted Array"
+        url: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/"
+        difficulty: "Medium"
+        tags: ["array", "binary-search"]
+
+      - title: "Search in Rotated Sorted Array"
+        url: "https://leetcode.com/problems/search-in-rotated-sorted-array/"
+        difficulty: "Medium"
+        tags: ["array", "binary-search"]
+
+      - title: "Time Based Key-Value Store"
+        url: "https://leetcode.com/problems/time-based-key-value-store/"
+        difficulty: "Medium"
+        tags: ["hash-table", "binary-search", "design"]
+
+      - title: "Median of Two Sorted Arrays"
+        url: "https://leetcode.com/problems/median-of-two-sorted-arrays/"
+        difficulty: "Hard"
+        tags: ["array", "binary-search", "divide-and-conquer"]
+
+  - name: "Linked List"
+    problems:
+      - title: "Reverse Linked List"
+        url: "https://leetcode.com/problems/reverse-linked-list/"
+        difficulty: "Easy"
+        tags: ["linked-list"]
+
+      - title: "Merge Two Sorted Lists"
+        url: "https://leetcode.com/problems/merge-two-sorted-lists/"
+        difficulty: "Easy"
+        tags: ["linked-list", "recursion"]
+
+      - title: "Linked List Cycle"
+        url: "https://leetcode.com/problems/linked-list-cycle/"
+        difficulty: "Easy"
+        tags: ["linked-list", "two-pointers"]
+
+      - title: "Reorder List"
+        url: "https://leetcode.com/problems/reorder-list/"
+        difficulty: "Medium"
+        tags: ["linked-list", "two-pointers"]
+
+      - title: "Remove Nth Node From End of List"
+        url: "https://leetcode.com/problems/remove-nth-node-from-end-of-list/"
+        difficulty: "Medium"
+        tags: ["linked-list", "two-pointers"]
+
+      - title: "Copy List with Random Pointer"
+        url: "https://leetcode.com/problems/copy-list-with-random-pointer/"
+        difficulty: "Medium"
+        tags: ["linked-list", "hash-table"]
+
+      - title: "Add Two Numbers"
+        url: "https://leetcode.com/problems/add-two-numbers/"
+        difficulty: "Medium"
+        tags: ["linked-list", "math"]
+
+      - title: "Find the Duplicate Number"
+        url: "https://leetcode.com/problems/find-the-duplicate-number/"
+        difficulty: "Medium"
+        tags: ["array", "two-pointers", "binary-search"]
+
+      - title: "LRU Cache"
+        url: "https://leetcode.com/problems/lru-cache/"
+        difficulty: "Medium"
+        tags: ["linked-list", "hash-table", "design"]
+
+      - title: "Merge K Sorted Lists"
+        url: "https://leetcode.com/problems/merge-k-sorted-lists/"
+        difficulty: "Hard"
+        tags: ["linked-list", "heap", "divide-and-conquer"]
+
+      - title: "Reverse Nodes in k-Group"
+        url: "https://leetcode.com/problems/reverse-nodes-in-k-group/"
+        difficulty: "Hard"
+        tags: ["linked-list", "recursion"]
+
+  - name: "Trees"
+    problems:
+      - title: "Invert Binary Tree"
+        url: "https://leetcode.com/problems/invert-binary-tree/"
+        difficulty: "Easy"
+        tags: ["tree", "dfs", "bfs"]
+
+      - title: "Maximum Depth of Binary Tree"
+        url: "https://leetcode.com/problems/maximum-depth-of-binary-tree/"
+        difficulty: "Easy"
+        tags: ["tree", "dfs", "bfs"]
+
+      - title: "Diameter of Binary Tree"
+        url: "https://leetcode.com/problems/diameter-of-binary-tree/"
+        difficulty: "Easy"
+        tags: ["tree", "dfs"]
+
+      - title: "Balanced Binary Tree"
+        url: "https://leetcode.com/problems/balanced-binary-tree/"
+        difficulty: "Easy"
+        tags: ["tree", "dfs"]
+
+      - title: "Same Tree"
+        url: "https://leetcode.com/problems/same-tree/"
+        difficulty: "Easy"
+        tags: ["tree", "dfs", "bfs"]
+
+      - title: "Subtree of Another Tree"
+        url: "https://leetcode.com/problems/subtree-of-another-tree/"
+        difficulty: "Easy"
+        tags: ["tree", "dfs"]
+
+      - title: "Lowest Common Ancestor of a Binary Search Tree"
+        url: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/"
+        difficulty: "Medium"
+        tags: ["tree", "dfs", "bst"]
+
+      - title: "Binary Tree Level Order Traversal"
+        url: "https://leetcode.com/problems/binary-tree-level-order-traversal/"
+        difficulty: "Medium"
+        tags: ["tree", "bfs"]
+
+      - title: "Binary Tree Right Side View"
+        url: "https://leetcode.com/problems/binary-tree-right-side-view/"
+        difficulty: "Medium"
+        tags: ["tree", "dfs", "bfs"]
+
+      - title: "Count Good Nodes in Binary Tree"
+        url: "https://leetcode.com/problems/count-good-nodes-in-binary-tree/"
+        difficulty: "Medium"
+        tags: ["tree", "dfs", "bfs"]
+
+      - title: "Validate Binary Search Tree"
+        url: "https://leetcode.com/problems/validate-binary-search-tree/"
+        difficulty: "Medium"
+        tags: ["tree", "dfs", "bst"]
+
+      - title: "Kth Smallest Element in a BST"
+        url: "https://leetcode.com/problems/kth-smallest-element-in-a-bst/"
+        difficulty: "Medium"
+        tags: ["tree", "dfs", "bst"]
+
+      - title: "Construct Binary Tree from Preorder and Inorder Traversal"
+        url: "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/"
+        difficulty: "Medium"
+        tags: ["tree", "dfs", "array"]
+
+      - title: "Binary Tree Maximum Path Sum"
+        url: "https://leetcode.com/problems/binary-tree-maximum-path-sum/"
+        difficulty: "Hard"
+        tags: ["tree", "dfs", "dynamic-programming"]
+
+      - title: "Serialize and Deserialize Binary Tree"
+        url: "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/"
+        difficulty: "Hard"
+        tags: ["tree", "dfs", "bfs", "design"]
+
+  - name: "Tries"
+    problems:
+      - title: "Implement Trie (Prefix Tree)"
+        url: "https://leetcode.com/problems/implement-trie-prefix-tree/"
+        difficulty: "Medium"
+        tags: ["trie", "design"]
+
+      - title: "Design Add and Search Words Data Structure"
+        url: "https://leetcode.com/problems/design-add-and-search-words-data-structure/"
+        difficulty: "Medium"
+        tags: ["trie", "dfs", "design"]
+
+      - title: "Word Search II"
+        url: "https://leetcode.com/problems/word-search-ii/"
+        difficulty: "Hard"
+        tags: ["trie", "backtracking", "matrix"]
+
+  - name: "Heap / Priority Queue"
+    problems:
+      - title: "Kth Largest Element in a Stream"
+        url: "https://leetcode.com/problems/kth-largest-element-in-a-stream/"
+        difficulty: "Easy"
+        tags: ["heap", "design"]
+
+      - title: "Last Stone Weight"
+        url: "https://leetcode.com/problems/last-stone-weight/"
+        difficulty: "Easy"
+        tags: ["array", "heap"]
+
+      - title: "K Closest Points to Origin"
+        url: "https://leetcode.com/problems/k-closest-points-to-origin/"
+        difficulty: "Medium"
+        tags: ["array", "heap", "sorting"]
+
+      - title: "Kth Largest Element in an Array"
+        url: "https://leetcode.com/problems/kth-largest-element-in-an-array/"
+        difficulty: "Medium"
+        tags: ["array", "heap", "sorting"]
+
+      - title: "Task Scheduler"
+        url: "https://leetcode.com/problems/task-scheduler/"
+        difficulty: "Medium"
+        tags: ["array", "heap", "greedy"]
+
+      - title: "Design Twitter"
+        url: "https://leetcode.com/problems/design-twitter/"
+        difficulty: "Medium"
+        tags: ["heap", "hash-table", "design"]
+
+      - title: "Find Median from Data Stream"
+        url: "https://leetcode.com/problems/find-median-from-data-stream/"
+        difficulty: "Hard"
+        tags: ["heap", "design", "sorting"]
+
+  - name: "Backtracking"
+    problems:
+      - title: "Subsets"
+        url: "https://leetcode.com/problems/subsets/"
+        difficulty: "Medium"
+        tags: ["array", "backtracking"]
+
+      - title: "Combination Sum"
+        url: "https://leetcode.com/problems/combination-sum/"
+        difficulty: "Medium"
+        tags: ["array", "backtracking"]
+
+      - title: "Permutations"
+        url: "https://leetcode.com/problems/permutations/"
+        difficulty: "Medium"
+        tags: ["array", "backtracking"]
+
+      - title: "Subsets II"
+        url: "https://leetcode.com/problems/subsets-ii/"
+        difficulty: "Medium"
+        tags: ["array", "backtracking"]
+
+      - title: "Combination Sum II"
+        url: "https://leetcode.com/problems/combination-sum-ii/"
+        difficulty: "Medium"
+        tags: ["array", "backtracking"]
+
+      - title: "Word Search"
+        url: "https://leetcode.com/problems/word-search/"
+        difficulty: "Medium"
+        tags: ["array", "matrix", "backtracking"]
+
+      - title: "Palindrome Partitioning"
+        url: "https://leetcode.com/problems/palindrome-partitioning/"
+        difficulty: "Medium"
+        tags: ["string", "backtracking", "dynamic-programming"]
+
+      - title: "Letter Combinations of a Phone Number"
+        url: "https://leetcode.com/problems/letter-combinations-of-a-phone-number/"
+        difficulty: "Medium"
+        tags: ["string", "backtracking"]
+
+      - title: "N-Queens"
+        url: "https://leetcode.com/problems/n-queens/"
+        difficulty: "Hard"
+        tags: ["array", "backtracking"]
+
+  - name: "Graphs"
+    problems:
+      - title: "Number of Islands"
+        url: "https://leetcode.com/problems/number-of-islands/"
+        difficulty: "Medium"
+        tags: ["graph", "dfs", "bfs", "union-find"]
+
+      - title: "Clone Graph"
+        url: "https://leetcode.com/problems/clone-graph/"
+        difficulty: "Medium"
+        tags: ["graph", "bfs", "dfs"]
+
+      - title: "Max Area of Island"
+        url: "https://leetcode.com/problems/max-area-of-island/"
+        difficulty: "Medium"
+        tags: ["graph", "dfs", "bfs"]
+
+      - title: "Pacific Atlantic Water Flow"
+        url: "https://leetcode.com/problems/pacific-atlantic-water-flow/"
+        difficulty: "Medium"
+        tags: ["graph", "dfs", "bfs"]
+
+      - title: "Surrounded Regions"
+        url: "https://leetcode.com/problems/surrounded-regions/"
+        difficulty: "Medium"
+        tags: ["graph", "dfs", "bfs"]
+
+      - title: "Rotting Oranges"
+        url: "https://leetcode.com/problems/rotting-oranges/"
+        difficulty: "Medium"
+        tags: ["graph", "bfs", "matrix"]
+
+      - title: "Walls and Gates"
+        url: "https://leetcode.com/problems/walls-and-gates/"
+        difficulty: "Medium"
+        tags: ["graph", "bfs", "matrix"]
+
+      - title: "Course Schedule"
+        url: "https://leetcode.com/problems/course-schedule/"
+        difficulty: "Medium"
+        tags: ["graph", "topological-sort", "dfs"]
+
+      - title: "Course Schedule II"
+        url: "https://leetcode.com/problems/course-schedule-ii/"
+        difficulty: "Medium"
+        tags: ["graph", "topological-sort", "dfs"]
+
+      - title: "Redundant Connection"
+        url: "https://leetcode.com/problems/redundant-connection/"
+        difficulty: "Medium"
+        tags: ["graph", "union-find"]
+
+      - title: "Number of Connected Components in an Undirected Graph"
+        url: "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/"
+        difficulty: "Medium"
+        tags: ["graph", "dfs", "bfs", "union-find"]
+
+      - title: "Graph Valid Tree"
+        url: "https://leetcode.com/problems/graph-valid-tree/"
+        difficulty: "Medium"
+        tags: ["graph", "dfs", "bfs", "union-find"]
+
+      - title: "Word Ladder"
+        url: "https://leetcode.com/problems/word-ladder/"
+        difficulty: "Hard"
+        tags: ["graph", "bfs", "string"]
+
+  - name: "Advanced Graphs"
+    problems:
+      - title: "Reconstruct Itinerary"
+        url: "https://leetcode.com/problems/reconstruct-itinerary/"
+        difficulty: "Hard"
+        tags: ["graph", "dfs", "eulerian-path"]
+
+      - title: "Min Cost to Connect All Points"
+        url: "https://leetcode.com/problems/min-cost-to-connect-all-points/"
+        difficulty: "Medium"
+        tags: ["graph", "mst", "union-find"]
+
+      - title: "Network Delay Time"
+        url: "https://leetcode.com/problems/network-delay-time/"
+        difficulty: "Medium"
+        tags: ["graph", "dijkstra", "heap"]
+
+      - title: "Swim in Rising Water"
+        url: "https://leetcode.com/problems/swim-in-rising-water/"
+        difficulty: "Hard"
+        tags: ["graph", "binary-search", "heap"]
+
+      - title: "Alien Dictionary"
+        url: "https://leetcode.com/problems/alien-dictionary/"
+        difficulty: "Hard"
+        tags: ["graph", "topological-sort"]
+
+      - title: "Cheapest Flights Within K Stops"
+        url: "https://leetcode.com/problems/cheapest-flights-within-k-stops/"
+        difficulty: "Medium"
+        tags: ["graph", "dynamic-programming", "bfs"]
+
+  - name: "1-D Dynamic Programming"
+    problems:
+      - title: "Climbing Stairs"
+        url: "https://leetcode.com/problems/climbing-stairs/"
+        difficulty: "Easy"
+        tags: ["dynamic-programming"]
+
+      - title: "Min Cost Climbing Stairs"
+        url: "https://leetcode.com/problems/min-cost-climbing-stairs/"
+        difficulty: "Easy"
+        tags: ["dynamic-programming"]
+
+      - title: "House Robber"
+        url: "https://leetcode.com/problems/house-robber/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming"]
+
+      - title: "House Robber II"
+        url: "https://leetcode.com/problems/house-robber-ii/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming"]
+
+      - title: "Longest Palindromic Substring"
+        url: "https://leetcode.com/problems/longest-palindromic-substring/"
+        difficulty: "Medium"
+        tags: ["string", "dynamic-programming"]
+
+      - title: "Palindromic Substrings"
+        url: "https://leetcode.com/problems/palindromic-substrings/"
+        difficulty: "Medium"
+        tags: ["string", "dynamic-programming"]
+
+      - title: "Decode Ways"
+        url: "https://leetcode.com/problems/decode-ways/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming", "string"]
+
+      - title: "Coin Change"
+        url: "https://leetcode.com/problems/coin-change/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming", "bfs"]
+
+      - title: "Maximum Product Subarray"
+        url: "https://leetcode.com/problems/maximum-product-subarray/"
+        difficulty: "Medium"
+        tags: ["array", "dynamic-programming"]
+
+      - title: "Word Break"
+        url: "https://leetcode.com/problems/word-break/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming", "trie", "memoization"]
+
+      - title: "Longest Increasing Subsequence"
+        url: "https://leetcode.com/problems/longest-increasing-subsequence/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming", "binary-search"]
+
+      - title: "Partition Equal Subset Sum"
+        url: "https://leetcode.com/problems/partition-equal-subset-sum/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming"]
+
+  - name: "2-D Dynamic Programming"
+    problems:
+      - title: "Unique Paths"
+        url: "https://leetcode.com/problems/unique-paths/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming", "math"]
+
+      - title: "Longest Common Subsequence"
+        url: "https://leetcode.com/problems/longest-common-subsequence/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming"]
+
+      - title: "Best Time to Buy and Sell Stock with Cooldown"
+        url: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming"]
+
+      - title: "Coin Change II"
+        url: "https://leetcode.com/problems/coin-change-ii/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming"]
+
+      - title: "Target Sum"
+        url: "https://leetcode.com/problems/target-sum/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming", "backtracking"]
+
+      - title: "Interleaving String"
+        url: "https://leetcode.com/problems/interleaving-string/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming", "string"]
+
+      - title: "Longest Increasing Path in a Matrix"
+        url: "https://leetcode.com/problems/longest-increasing-path-in-a-matrix/"
+        difficulty: "Hard"
+        tags: ["dynamic-programming", "dfs", "memoization"]
+
+      - title: "Distinct Subsequences"
+        url: "https://leetcode.com/problems/distinct-subsequences/"
+        difficulty: "Hard"
+        tags: ["dynamic-programming", "string"]
+
+      - title: "Edit Distance"
+        url: "https://leetcode.com/problems/edit-distance/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming", "string"]
+
+      - title: "Burst Balloons"
+        url: "https://leetcode.com/problems/burst-balloons/"
+        difficulty: "Hard"
+        tags: ["dynamic-programming"]
+
+      - title: "Regular Expression Matching"
+        url: "https://leetcode.com/problems/regular-expression-matching/"
+        difficulty: "Hard"
+        tags: ["dynamic-programming", "string", "recursion"]
+
+  - name: "Greedy"
+    problems:
+      - title: "Maximum Subarray"
+        url: "https://leetcode.com/problems/maximum-subarray/"
+        difficulty: "Medium"
+        tags: ["array", "dynamic-programming", "greedy"]
+
+      - title: "Jump Game"
+        url: "https://leetcode.com/problems/jump-game/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming", "greedy"]
+
+      - title: "Jump Game II"
+        url: "https://leetcode.com/problems/jump-game-ii/"
+        difficulty: "Medium"
+        tags: ["dynamic-programming", "greedy"]
+
+      - title: "Gas Station"
+        url: "https://leetcode.com/problems/gas-station/"
+        difficulty: "Medium"
+        tags: ["array", "greedy"]
+
+      - title: "Hand of Straights"
+        url: "https://leetcode.com/problems/hand-of-straights/"
+        difficulty: "Medium"
+        tags: ["array", "hash-table", "greedy"]
+
+      - title: "Merge Triplets to Form Target Triplet"
+        url: "https://leetcode.com/problems/merge-triplets-to-form-target-triplet/"
+        difficulty: "Medium"
+        tags: ["array", "greedy"]
+
+      - title: "Partition Labels"
+        url: "https://leetcode.com/problems/partition-labels/"
+        difficulty: "Medium"
+        tags: ["string", "greedy", "hash-table"]
+
+      - title: "Valid Parenthesis String"
+        url: "https://leetcode.com/problems/valid-parenthesis-string/"
+        difficulty: "Medium"
+        tags: ["string", "greedy", "dynamic-programming"]
+
+  - name: "Intervals"
+    problems:
+      - title: "Insert Interval"
+        url: "https://leetcode.com/problems/insert-interval/"
+        difficulty: "Medium"
+        tags: ["array", "interval"]
+
+      - title: "Merge Intervals"
+        url: "https://leetcode.com/problems/merge-intervals/"
+        difficulty: "Medium"
+        tags: ["array", "interval", "sorting"]
+
+      - title: "Non-overlapping Intervals"
+        url: "https://leetcode.com/problems/non-overlapping-intervals/"
+        difficulty: "Medium"
+        tags: ["array", "interval", "greedy"]
+
+      - title: "Meeting Rooms"
+        url: "https://leetcode.com/problems/meeting-rooms/"
+        difficulty: "Easy"
+        tags: ["array", "interval", "sorting"]
+
+      - title: "Meeting Rooms II"
+        url: "https://leetcode.com/problems/meeting-rooms-ii/"
+        difficulty: "Medium"
+        tags: ["array", "interval", "heap"]
+
+      - title: "Minimum Interval to Include Each Query"
+        url: "https://leetcode.com/problems/minimum-interval-to-include-each-query/"
+        difficulty: "Hard"
+        tags: ["array", "interval", "sorting", "heap"]
+
+  - name: "Math & Geometry"
+    problems:
+      - title: "Rotate Image"
+        url: "https://leetcode.com/problems/rotate-image/"
+        difficulty: "Medium"
+        tags: ["array", "matrix", "math"]
+
+      - title: "Spiral Matrix"
+        url: "https://leetcode.com/problems/spiral-matrix/"
+        difficulty: "Medium"
+        tags: ["array", "matrix"]
+
+      - title: "Set Matrix Zeroes"
+        url: "https://leetcode.com/problems/set-matrix-zeroes/"
+        difficulty: "Medium"
+        tags: ["array", "matrix"]
+
+      - title: "Happy Number"
+        url: "https://leetcode.com/problems/happy-number/"
+        difficulty: "Easy"
+        tags: ["math", "hash-table"]
+
+      - title: "Plus One"
+        url: "https://leetcode.com/problems/plus-one/"
+        difficulty: "Easy"
+        tags: ["array", "math"]
+
+      - title: "Pow(x, n)"
+        url: "https://leetcode.com/problems/powx-n/"
+        difficulty: "Medium"
+        tags: ["math", "recursion"]
+
+      - title: "Multiply Strings"
+        url: "https://leetcode.com/problems/multiply-strings/"
+        difficulty: "Medium"
+        tags: ["math", "string"]
+
+      - title: "Detect Squares"
+        url: "https://leetcode.com/problems/detect-squares/"
+        difficulty: "Medium"
+        tags: ["array", "hash-table", "design"]
+
+  - name: "Bit Manipulation"
+    problems:
+      - title: "Single Number"
+        url: "https://leetcode.com/problems/single-number/"
+        difficulty: "Easy"
+        tags: ["array", "bit-manipulation"]
+
+      - title: "Number of 1 Bits"
+        url: "https://leetcode.com/problems/number-of-1-bits/"
+        difficulty: "Easy"
+        tags: ["bit-manipulation"]
+
+      - title: "Counting Bits"
+        url: "https://leetcode.com/problems/counting-bits/"
+        difficulty: "Easy"
+        tags: ["bit-manipulation", "dynamic-programming"]
+
+      - title: "Reverse Bits"
+        url: "https://leetcode.com/problems/reverse-bits/"
+        difficulty: "Easy"
+        tags: ["bit-manipulation"]
+
+      - title: "Missing Number"
+        url: "https://leetcode.com/problems/missing-number/"
+        difficulty: "Easy"
+        tags: ["array", "bit-manipulation"]
+
+      - title: "Sum of Two Integers"
+        url: "https://leetcode.com/problems/sum-of-two-integers/"
+        difficulty: "Medium"
+        tags: ["bit-manipulation"]
+
+      - title: "Reverse Integer"
+        url: "https://leetcode.com/problems/reverse-integer/"
+        difficulty: "Medium"
+        tags: ["math"]
