@@ -65,11 +65,11 @@ dev = [
 dsap = "dsap.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/alquatra/dsap"
-Documentation = "https://github.com/alquatra/dsap#readme"
-Repository = "https://github.com/alquatra/dsap.git"
-Issues = "https://github.com/alquatra/dsap/issues"
-Changelog = "https://github.com/alquatra/dsap/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/juma-paul/dsap-cli"
+Documentation = "https://github.com/juma-paul/dsap-cli#readme"
+Repository = "https://github.com/juma-paul/dsap-cli"
+Issues = "https://github.com/juma-paul/dsap-cli/issues"
+Changelog = "https://github.com/juma-paul/dsap-cli/blob/main/CHANGELOG.md"
 
 [build-system]
 requires = ["hatchling>=1.20"]
