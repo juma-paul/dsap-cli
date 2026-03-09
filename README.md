@@ -2,10 +2,10 @@
 
 # Data Structures and Algorithms Practice (DSAP)
 
-[![PyPI version](https://badge.fury.io/py/dsap-cli.svg)](https://pypi.org/project/dsap-cli/)
-[![PyPI downloads](https://img.shields.io/pypi/dm/dsap-cli)](https://pypi.org/project/dsap-cli/)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![PyPI](https://img.shields.io/pypi/v/dsap-cli)
+![Downloads](https://img.shields.io/pypi/dm/dsap-cli)
+![Python](https://img.shields.io/pypi/pyversions/dsap-cli)
+![License](https://img.shields.io/pypi/l/dsap-cli))
 
 DSAP is a terminal-first CLI that schedules coding interview problems using the **SM-2 spaced repetition algorithm**, helping you retain patterns long-term instead of forgetting them after solving once.
 
