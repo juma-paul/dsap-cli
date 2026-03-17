@@ -1,7 +1,7 @@
 # Data Structures and Algorithms Practice (DSAP)
 
 ![PyPI](https://img.shields.io/pypi/v/dsap-cli)
-![Downloads](https://img.shields.io/pypi/dm/dsap-cli)
+![PyPI downloads](https://img.shields.io/pypi/dm/dsap-cli?cacheSeconds=86400)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License](https://img.shields.io/pypi/l/dsap-cli)
 ![CI](https://img.shields.io/github/actions/workflow/status/juma-paul/dsap-cli/ci.yml)
