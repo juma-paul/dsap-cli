@@ -4,6 +4,8 @@
 [![CI](https://github.com/juma-paul/dsap-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/juma-paul/dsap-cli/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/juma-paul/dsap-cli/graph/badge.svg)](https://codecov.io/gh/juma-paul/dsap-cli)
 [![License](https://img.shields.io/pypi/l/dsap-cli)](https://github.com/juma-paul/dsap-cli/blob/main/LICENSE)
+![PyPI downloads](https://img.shields.io/pypi/dm/dsap-cli)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dsap-cli)
 
 
 DSAP is a terminal-first CLI that schedules coding interview problems using the **SM-2 spaced repetition algorithm**, helping you retain patterns long-term instead of forgetting them after solving once.
