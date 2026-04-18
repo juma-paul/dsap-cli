@@ -1,17 +1,16 @@
 # Data Structures and Algorithms Practice (DSAP)
 
-[![PyPI](https://img.shields.io/pypi/v/dsap-cli)](https://pypi.org/project/dsap-cli/)
 [![CI](https://github.com/juma-paul/dsap-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/juma-paul/dsap-cli/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/juma-paul/dsap-cli/graph/badge.svg)](https://codecov.io/gh/juma-paul/dsap-cli)
-[![License](https://img.shields.io/pypi/l/dsap-cli)](https://github.com/juma-paul/dsap-cli/blob/main/LICENSE)
+![PyPI](https://img.shields.io/pypi/v/dsap-cli)
 ![PyPI downloads](https://img.shields.io/pypi/dm/dsap-cli)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dsap-cli)
-
+![Python Versions](https://img.shields.io/pypi/pyversions/dsap-cli)
+![License](https://img.shields.io/pypi/l/dsap-cli)
+![Version](https://img.shields.io/github/v/tag/juma-paul/dsap-cli?label=version)
 
 DSAP is a terminal-first CLI that schedules coding interview problems using the **SM-2 spaced repetition algorithm**, <br />helping you retain patterns long-term instead of forgetting them after solving once.
 
-![dsap-cli Demo](assets/dsap-cli.gif)
----
+## ![dsap-cli Demo](assets/dsap-cli.gif)
 
 # Why DSAP?
 
@@ -99,16 +98,16 @@ DSAP then schedules the next review automatically.
 
 # Commands
 
-| Command | Description |
-|--------|-------------|
-| `dsap next` | Get next recommended problem |
+| Command       | Description                      |
+| ------------- | -------------------------------- |
+| `dsap next`   | Get next recommended problem     |
 | `dsap review` | Review due problems in a session |
-| `dsap list` | List problems with filters |
-| `dsap stats` | View progress and statistics |
-| `dsap load` | Load curated problem sets |
-| `dsap config` | Manage configuration |
-| `dsap reset` | Reset problems and/or progress |
-| `dsap add` | Add a custom problem |
+| `dsap list`   | List problems with filters       |
+| `dsap stats`  | View progress and statistics     |
+| `dsap load`   | Load curated problem sets        |
+| `dsap config` | Manage configuration             |
+| `dsap reset`  | Reset problems and/or progress   |
+| `dsap add`    | Add a custom problem             |
 
 ---
 
@@ -142,11 +141,11 @@ dsap reset --set blind75 --all
 
 # Problem Sets
 
-| Set | Problems | Description |
-|----|----|----|
-| `blind75` | 75 | Core interview essentials |
-| `neetcode150` | 150 | Comprehensive curriculum |
-| `grind75` | 75 | Flexible study roadmap |
+| Set           | Problems | Description               |
+| ------------- | -------- | ------------------------- |
+| `blind75`     | 75       | Core interview essentials |
+| `neetcode150` | 150      | Comprehensive curriculum  |
+| `grind75`     | 75       | Flexible study roadmap    |
 
 ```bash
 dsap load --list
@@ -167,13 +166,13 @@ dsap config auto_open_browser false
 dsap config --reset
 ```
 
-| Setting | Default | Description |
-|----|----|----|
-| `preferred_set` | None | Default problem set |
-| `daily_goal` | 5 | Target problems per day |
-| `preferred_difficulty` | None | Filter by difficulty |
-| `show_hints` | true | Show problem hints |
-| `auto_open_browser` | true | Open problems in browser |
+| Setting                | Default | Description              |
+| ---------------------- | ------- | ------------------------ |
+| `preferred_set`        | None    | Default problem set      |
+| `daily_goal`           | 5       | Target problems per day  |
+| `preferred_difficulty` | None    | Filter by difficulty     |
+| `show_hints`           | true    | Show problem hints       |
+| `auto_open_browser`    | true    | Open problems in browser |
 
 ---
 
@@ -183,12 +182,12 @@ DSAP implements the **SM-2 (SuperMemo 2)** spaced repetition algorithm.
 
 After solving each problem, rate your recall from **0–5**.
 
-| Rating | Meaning | Effect |
-|----|----|----|
-| 5 | Perfect | Interval grows |
-| 4 | Good | Interval grows |
-| 3 | Hard | Interval grows slowly |
-| 0-2 | Forgot | Interval resets |
+| Rating | Meaning | Effect                |
+| ------ | ------- | --------------------- |
+| 5      | Perfect | Interval grows        |
+| 4      | Good    | Interval grows        |
+| 3      | Hard    | Interval grows slowly |
+| 0-2    | Forgot  | Interval resets       |
 
 Typical interval progression:
 
