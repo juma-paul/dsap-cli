@@ -36,12 +36,13 @@ Repository = "https://github.com/juma-paul/dsap-cli"
 Issues = "https://github.com/juma-paul/dsap-cli/issues"
 Changelog = "https://github.com/juma-paul/dsap-cli/blob/main/CHANGELOG.md"
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
     "pytest",
     "pytest-cov",
     "ruff",
     "mypy",
+    "types-PyYAML",
 ]
 
 [tool.hatch.version]
