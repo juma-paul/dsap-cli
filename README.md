@@ -8,8 +8,9 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dsap-cli)
 
 
-DSAP is a terminal-first CLI that schedules coding interview problems using the **SM-2 spaced repetition algorithm**, helping you retain patterns long-term instead of forgetting them after solving once.
+DSAP is a terminal-first CLI that schedules coding interview problems using the **SM-2 spaced repetition algorithm**, <br />helping you retain patterns long-term instead of forgetting them after solving once.
 
+![dsap-cli Demo](assets/dsap-cli-demo.gif)
 ---
 
 # Why DSAP?
@@ -18,7 +19,7 @@ Most developers preparing for technical interviews solve algorithm problems once
 
 As a result, they forget patterns they previously learned.
 
-DSAP solves this by scheduling problems using **spaced repetition**, a learning technique proven to improve long-term memory.
+DSAP solves this by scheduling problems using **spaced repetition**, a learning technique proven to improve <br />long-term memory.
 
 Benefits:
 
