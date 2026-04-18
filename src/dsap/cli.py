@@ -15,6 +15,7 @@ Commands:
 
 import click
 import yaml
+from pydantic import HttpUrl
 
 from dsap import __version__
 from dsap.config import get_config
@@ -475,7 +476,7 @@ def add(
     try:
         problem = Problem(
             title=title,
-            url=url,
+            url=HttpUrl(url),
             difficulty=Difficulty.from_string(difficulty),
             category=category,
             description=description or "",
