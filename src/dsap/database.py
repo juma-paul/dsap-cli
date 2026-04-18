@@ -76,7 +76,9 @@ class Database:
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     title TEXT NOT NULL,
                     url TEXT NOT NULL UNIQUE,
-                    difficulty TEXT NOT NULL CHECK(difficulty IN ('Easy', 'Medium', 'Hard')),
+                    difficulty TEXT NOT NULL CHECK(
+                        difficulty IN ('Easy', 'Medium', 'Hard')
+                    ),
                     category TEXT NOT NULL,
                     description TEXT DEFAULT '',
                     tags TEXT DEFAULT '[]',
@@ -493,8 +495,14 @@ class Database:
                         next_review = ?,
                         last_reviewed = ?,
                         attempts = attempts + 1,
-                        solved = CASE WHEN ? >= 3 AND solved = 0 THEN 1 ELSE solved END,
-                        solved_at = CASE WHEN ? >= 3 AND solved = 0 THEN ? ELSE solved_at END,
+                        solved_at = CASE
+                            WHEN ? >= 3 AND solved = 0 THEN ?
+                            ELSE solved_at
+                        END,
+                        solved_at = CASE 
+                            WHEN ? >= 3 AND solved = 0 THEN ? 
+                            ELSE solved_at 
+                        END,
                         last_quality = ?
                     WHERE problem_id = ?
                 """,

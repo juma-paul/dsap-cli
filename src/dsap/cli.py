@@ -118,7 +118,10 @@ def review(limit: int, difficulty: str, category: str, problem_set: str) -> None
         problem_set = config.get("preferred_set")
 
     # Normalize the set name
-    problem_set = normalize_set_name(problem_set)
+    normalized = normalize_set_name(problem_set)
+    if normalized is None:
+        raise ValueError("Invalid problem set name")
+    problem_set = normalized
 
     # Get due problems
     due_problems = db.get_due_problems(
@@ -183,6 +186,8 @@ def review(limit: int, difficulty: str, category: str, problem_set: str) -> None
         new_state = process_review(current_state, quality)
 
         # Save to database
+        if problem.id is None:
+            raise ValueError("Problem has no ID")
         db.update_progress(problem.id, new_state, quality)
 
         # Show feedback
@@ -235,7 +240,10 @@ def next(difficulty: str, category: str, problem_set: str, new_only: bool) -> No
         problem_set = config.get("preferred_set")
 
     # Normalize the set name
-    problem_set = normalize_set_name(problem_set)
+    normalized = normalize_set_name(problem_set)
+    if normalized is None:
+        raise ValueError("Invalid problem set name")
+    problem_set = normalized
 
     result = db.get_next_recommendation(
         difficulty=difficulty,
@@ -256,6 +264,9 @@ def next(difficulty: str, category: str, problem_set: str, new_only: bool) -> No
 
     # Ensure progress record exists
     if progress is None:
+        if problem.id is None:
+            raise ValueError("Problem has no ID")
+
         db.ensure_progress_exists(problem.id)
 
     # Display the problem
@@ -283,7 +294,11 @@ def next(difficulty: str, category: str, problem_set: str, new_only: bool) -> No
                     repetitions=progress.repetitions if progress else 0,
                 )
                 new_state = process_review(current_state, quality)
+
+                if problem.id is None:
+                    raise ValueError("Problem has no ID")
                 db.update_progress(problem.id, new_state, quality)
+
                 display_review_feedback(quality, new_state.interval)
 
 
@@ -319,7 +334,10 @@ def list_problems(
     db = Database()
 
     # Normalize set name
-    problem_set = normalize_set_name(problem_set)
+    normalized = normalize_set_name(problem_set)
+    if normalized is None:
+        raise ValueError("Invalid problem set name")
+    problem_set = normalized
 
     problems = db.get_problems(
         difficulty=difficulty,
@@ -577,7 +595,10 @@ def reset(
     db = Database()
 
     # Normalize set name
-    problem_set = normalize_set_name(problem_set)
+    normalized = normalize_set_name(problem_set)
+    if normalized is None:
+        raise ValueError("Invalid problem set name")
+    problem_set = normalized
 
     # Build description of what will be reset
     scope = f"'{problem_set}'" if problem_set else "all"

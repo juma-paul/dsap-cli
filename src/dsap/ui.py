@@ -18,7 +18,6 @@ from rich.table import Table
 
 from dsap.models import Difficulty, Problem, ProblemProgress, Statistics
 
-
 # Global console instance
 console = Console()
 
@@ -262,7 +261,10 @@ def display_stats(stats: Statistics) -> None:
     # Main stats panel
     main_lines = [
         f"[bold]Total Problems:[/bold] {stats.total_problems}",
-        f"[bold]Solved:[/bold] [green]{stats.solved_problems}[/green] ({stats.solved_percentage}%)",
+        (
+            f"[bold]Solved:[/bold] [green]{stats.solved_problems}[/green] "
+            f"({stats.solved_percentage}%)"
+        ),
         f"[bold]Reviewed:[/bold] {stats.reviewed_problems}",
         "",
         f"[bold]Due Today:[/bold] [yellow]{stats.due_today}[/yellow]",
