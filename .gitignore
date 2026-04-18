@@ -87,7 +87,9 @@ PyPI-Recovery-Codes.txt
 
 # Development planning files
 plan.md
-docs/
+
+# Auto-generated version file
+src/dsap/_version.py
 
 # OS files
 .DS_Store

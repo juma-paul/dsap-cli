@@ -1,10 +1,9 @@
 # Data Structures and Algorithms Practice (DSAP)
 
-![PyPI](https://img.shields.io/pypi/v/dsap-cli)
-![Downloads](https://img.shields.io/pypi/dm/dsap-cli)
-![Python](https://img.shields.io/badge/python-3.10%2B-blue)
-![License](https://img.shields.io/pypi/l/dsap-cli)
-![CI](https://img.shields.io/github/actions/workflow/status/juma-paul/dsap-cli/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/dsap-cli)](https://pypi.org/project/dsap-cli/)
+[![CI](https://github.com/juma-paul/dsap-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/juma-paul/dsap-cli/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/juma-paul/dsap-cli/graph/badge.svg)](https://codecov.io/gh/juma-paul/dsap-cli)
+[![License](https://img.shields.io/pypi/l/dsap-cli)](https://github.com/juma-paul/dsap-cli/blob/main/LICENSE)
 
 
 DSAP is a terminal-first CLI that schedules coding interview problems using the **SM-2 spaced repetition algorithm**, helping you retain patterns long-term instead of forgetting them after solving once.
@@ -242,3 +241,16 @@ CHANGELOG.md
 # License
 
 MIT
+
+---
+
+<div align="center">
+
+**Built with Python, Click, Rich, Pydantic, and SQLite.**
+
+If you found this helpful, consider giving it a star
+<img src="https://github.githubassets.com/images/icons/emoji/unicode/2b50.png"
+     height="18"
+     style="vertical-align: text-bottom;" />
+
+</div>

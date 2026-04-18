@@ -1,190 +1,77 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
 [project]
 name = "dsap-cli"
-version = "0.1.0"
-description = "A CLI for mastering Data Structures & Algorithms using spaced repetition (SM-2)."
-readme = { file = "README.md", content-type = "text/markdown" }
-license = "MIT"
-license-files = ["LICENSE"]
+dynamic = ["version"]
+description = "CLI tool for practicing data structures and algorithms using spaced repetition."
+readme = "README.md"
 requires-python = ">=3.10"
-
-authors = [
-    { name = "Juma R. Paul", email = "jumarobertpaul@gmail.com" },
-]
-maintainers = [
-    { name = "Juma R. Paul", email = "jumarobertpaul@gmail.com" },
-]
-
-keywords = [
-    "algorithms",
-    "cli",
-    "coding-interview",
-    "data-structures",
-    "dsa",
-    "leetcode",
-    "sm2",
-    "spaced-repetition",
-    "study"
-]
+license = { text = "MIT" }
+authors = [{ name = "Juma Paul" }]
+keywords = ["algorithms", "data-structures", "cli", "spaced-repetition"]
 
 classifiers = [
-    "Development Status :: 4 - Beta",
-    "Environment :: Console",
-    "Intended Audience :: Developers",
-    "Intended Audience :: Education",
+    "Development Status :: 5 - Production/Stable",
     "License :: OSI Approved :: MIT License",
-    "Natural Language :: English",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "Topic :: Education",
-    "Topic :: Software Development",
-    "Typing :: Typed"
 ]
 
 dependencies = [
     "click>=8.1,<9",
     "pydantic>=2,<3",
     "pyyaml>=6,<7",
-    "rich>=13,<14"
-]
-
-[project.optional-dependencies]
-dev = [
-    "mypy>=1,<2",
-    "pre-commit>=3,<4",
-    "pytest>=8,<9",
-    "pytest-cov>=4,<5",
-    "ruff>=0.4,<1",
-    "types-PyYAML>=6,<7",
+    "rich>=13,<14",
 ]
 
 [project.scripts]
 dsap = "dsap.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/juma-paul/dsap-cli"
-Documentation = "https://github.com/juma-paul/dsap-cli#readme"
 Repository = "https://github.com/juma-paul/dsap-cli"
 Issues = "https://github.com/juma-paul/dsap-cli/issues"
 Changelog = "https://github.com/juma-paul/dsap-cli/blob/main/CHANGELOG.md"
 
-[build-system]
-requires = ["hatchling>=1.20"]
-build-backend = "hatchling.build"
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "mypy",
+]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/dsap/_version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/dsap"]
 
-[tool.hatch.build.targets.sdist]
-include = [
-    "/src",
-    "/tests",
-    "/README.md",
-    "/LICENSE",
-    "/CHANGELOG.md",
-    "/USER_GUIDE.md"
-]
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["--cov=dsap", "--cov-report=term-missing"]
+
+[tool.coverage.run]
+source = ["dsap"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
 
 [tool.ruff]
-target-version = "py310"
 line-length = 88
-src = ["src", "tests"]
+target-version = "py310"
 
 [tool.ruff.lint]
-select = [
-    "E",      # pycodestyle errors
-    "W",      # pycodestyle warnings
-    "F",      # Pyflakes
-    "I",      # isort
-    "N",      # pep8-naming
-    "UP",     # pyupgrade
-    "B",      # flake8-bugbear
-    "C4",     # flake8-comprehensions
-    "SIM",    # flake8-simplify
-    "D",      # pydocstyle (Google docstrings)
-    "ANN",    # flake8-annotations
-    "S",      # flake8-bandit (security)
-    "PTH",    # flake8-use-pathlib
-    "RUF",    # Ruff-specific rules
-    "TRY",    # tryceratops (exception handling)
-]
-ignore = [
-    "E501",    # Line too long (formatter handles)
-    "D100",    # Missing module docstring (relax)
-    "D104",    # Missing package docstring
-    "D107",    # Missing docstring in __init__ (covered by class docstring)
-    "D205",    # Blank line after summary (too strict for extended docstrings)
-    "S101",    # Assert usage (needed in tests)
-    "S608",    # SQL injection (false positive - using parameterized queries)
-    "TRY003",  # Avoid long messages in exceptions
-    "ANN204",  # Missing return type for __init__
-    "ANN401",  # Any type (legitimate use in config)
-    "SIM102",  # Nested if (sometimes more readable)
-    "SIM108",  # Ternary (sometimes if-else more readable)
-    "PTH123",  # Path.open() (open() is fine for simple cases)
-    "RUF005",  # List concatenation (+ is fine)
-]
-
-[tool.ruff.lint.pydocstyle]
-convention = "google"
-
-[tool.ruff.lint.isort]
-known-first-party = ["dsap"]
-lines-after-imports = 2
-
-[tool.ruff.lint.per-file-ignores]
-"tests/**/*.py" = ["D", "ANN", "S101", "PLR2004", "C408"]
-"src/dsap/__main__.py" = ["D"]
-
-[tool.ruff.format]
-quote-style = "double"
-docstring-code-format = true
+select = ["E", "F", "I", "B"]
 
 [tool.mypy]
 python_version = "3.10"
 strict = true
-warn_return_any = true
-warn_unused_ignores = true
-disallow_untyped_defs = true
-disallow_incomplete_defs = true
-check_untyped_defs = true
-no_implicit_optional = true
-warn_redundant_casts = true
-show_error_codes = true
 pretty = true
-
-[[tool.mypy.overrides]]
-module = ["tests.*"]
-disallow_untyped_defs = false
-disallow_incomplete_defs = false
-check_untyped_defs = false
-disable_error_code = ["arg-type", "no-untyped-def"]
-
-[[tool.mypy.overrides]]
-module = ["dsap.cli"]
-# CLI has optional parameters that can be None, mypy doesn't handle well
-disable_error_code = ["arg-type", "assignment"]
-
-[[tool.mypy.overrides]]
-module = ["dsap.database"]
-# Database has dynamic list parameters
-disable_error_code = ["type-arg"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py"]
-addopts = ["-v", "--tb=short", "--strict-markers"]
-
-[tool.coverage.run]
-source = ["src/dsap"]
-branch = true
-
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "if TYPE_CHECKING:",
-    "raise NotImplementedError"
-]

@@ -1,150 +1,69 @@
 # DSAP User Guide
 
-Master Data Structures & Algorithms with scientifically-proven spaced repetition.
-
-This guide explains how to use DSAP to practice algorithm problems using spaced repetition so you retain problem-solving patterns long-term.
+Detailed reference for DSAP users. For installation and quick start, see README.md.
 
 ---
 
-# Table of Contents
+## Table of Contents
 
-1. [Installation](#1-installation)
-2. [Getting Started](#2-getting-started)
-3. [Daily Workflow](#3-daily-workflow)
-4. [Understanding the Interface](#4-understanding-the-interface)
-5. [Command Reference](#5-command-reference)
-6. [Configuration](#6-configuration)
-7. [Problem Sets](#7-problem-sets)
-8. [Custom Problems](#8-custom-problems)
-9. [How SM-2 Spaced Repetition Works](#9-how-sm-2-spaced-repetition-works)
-10. [Common Scenarios](#10-common-scenarios)
-11. [Interview Prep Strategies](#11-interview-prep-strategies)
-12. [Troubleshooting](#12-troubleshooting)
-13. [Data Management](#13-data-management)
+1. [Daily Workflow](#daily-workflow)
+2. [Understanding the Interface](#understanding-the-interface)
+3. [Command Details](#command-details)
+4. [Custom Problems](#custom-problems)
+5. [Common Scenarios](#common-scenarios)
+6. [Interview Prep Strategies](#interview-prep-strategies)
+7. [Troubleshooting](#troubleshooting)
+8. [Data Management](#data-management)
 
 ---
 
-# 1. Installation
+## Daily Workflow
 
-## Recommended (Isolated CLI Tool)
-
-```bash
-# Using uv (fastest)
-uv tool install dsap-cli
-
-# Using pipx (alternative)
-pipx install dsap-cli
-```
-
-## Alternative (Global Install)
+### Morning Routine
 
 ```bash
-pip install dsap-cli
-uv pip install dsap-cli
+dsap stats    # Check what's due
+dsap review   # Clear due reviews first
 ```
 
-## Verify Installation
+### Adding New Problems
 
 ```bash
-dsap --version
-dsap --help
+dsap next --new-only   # Only show unreviewed problems
 ```
 
----
-
-# 2. Getting Started
-
-## Step 1: Load a Problem Set
-
-```bash
-dsap load --list
-dsap load blind75
-```
-
-Output example:
-
-```
-Loaded 75 problems from Blind 75
-```
-
-## Step 2: Configure Preferences
-
-```bash
-dsap config preferred_set blind75
-dsap config daily_goal 5
-```
-
-## Step 3: Start Your First Problem
-
-```bash
-dsap next
-```
-
-This will:
-
-1. Show a problem
-2. Optionally open it in your browser
-3. Ask you to rate recall after solving
-
----
-
-# 3. Daily Workflow
-
-## Morning Routine
-
-```bash
-dsap stats
-dsap review
-```
-
-## Adding New Problems
-
-```bash
-dsap next --new-only
-```
-
-or
-
-```bash
-dsap next
-```
-
----
-
-## Review Session Flow
+### Review Session Flow
 
 ```
 Show problem
-     ↓
-Solve problem
-     ↓
+     |
+Solve problem (on LeetCode)
+     |
 Return to terminal
-     ↓
+     |
 Rate recall (0-5)
-     ↓
+     |
 DSAP schedules next review
 ```
 
----
+### Rating Your Recall
 
-## Rating Your Recall
+| Rating | Name | When To Use | Effect |
+|-------:|------|-------------|--------|
+| 5 | Perfect | Instant recall | Interval grows significantly |
+| 4 | Good | Correct but required thinking | Interval grows |
+| 3 | Hard | Struggled but solved | Interval grows slightly |
+| 2 | Forgot | Wrong but solution felt familiar | Interval resets |
+| 1 | Blackout | Wrong, barely recognized solution | Interval resets |
+| 0 | Total Blackout | No memory of solution | Interval resets |
 
-| Rating | Name           | When To Use                              | Effect                     |
-|------:|----------------|-------------------------------------------|----------------------------|
-| 5     | Perfect        | Instant recall                            | Interval grows significantly |
-| 4     | Good           | Correct but required thinking             | Interval grows              |
-| 3     | Hard           | Struggled but solved                      | Interval grows slightly     |
-| 2     | Forgot         | Wrong but solution felt familiar          | Interval resets             |
-| 1     | Blackout       | Wrong, barely recognized solution         | Interval resets             |
-| 0     | Total Blackout | No memory of solution                     | Interval resets             |
-
-Tip: Always rate honestly so the algorithm schedules reviews correctly.
+Rate honestly so the algorithm schedules reviews correctly.
 
 ---
 
-# 4. Understanding the Interface
+## Understanding the Interface
 
-## Problem Display Example
+### Problem Display
 
 ```
 Two Sum
@@ -165,20 +84,12 @@ Next Review: 2026-03-20
 ### Key Metrics
 
 | Metric | Meaning |
-|------|---------|
-| EF | Easiness factor representing difficulty for you |
-| Interval | Days until next review |
-| Attempts | Number of reviews completed |
+|--------|---------|
+| EF | Easiness factor - lower means harder for you |
+| Interval | Days until next scheduled review |
+| Attempts | Total number of reviews completed |
 
----
-
-## Stats Display
-
-```bash
-dsap stats
-```
-
-Example:
+### Stats Display
 
 ```
 Total Problems: 75
@@ -189,174 +100,75 @@ Current Streak: 7
 Best Streak: 14
 ```
 
-### Difficulty Breakdown
-
-| Difficulty | Solved | Total | Progress |
-|------------|--------|-------|----------|
-| Easy       | 15     | 20    | 75% |
-| Medium     | 25     | 40    | 62% |
-| Hard       | 5      | 15    | 33% |
-
 ---
 
-# 5. Command Reference
+## Command Details
 
-## dsap next
+### dsap next
 
 Get the next recommended problem.
 
-```
-dsap next
-dsap next --difficulty Medium
-dsap next --set blind75
-dsap next --new-only
+```bash
+dsap next                        # Default recommendation
+dsap next --difficulty Medium    # Filter by difficulty
+dsap next --set blind75          # Filter by set
+dsap next --new-only             # Only unreviewed problems
+dsap next --category "Graphs"    # Filter by category
 ```
 
 Priority order:
-
-1. Due problems
-2. New problems
+1. Due problems (most overdue first)
+2. New problems (never reviewed)
 3. Hardest problems (lowest EF)
 
----
+### dsap review
 
-## dsap review
+Start a review session with multiple problems.
 
-Start a review session.
-
-```
-dsap review
-dsap review --limit 5
+```bash
+dsap review              # All due problems
+dsap review --limit 5    # Limit to 5 problems
 dsap review --set blind75
 ```
 
----
+### dsap list
 
-## dsap list
+Browse problems with filters.
 
-List problems with filters.
-
-```
-dsap list
-dsap list --limit 100
-dsap list --difficulty Hard
-dsap list --category "Graphs"
-dsap list --due
-```
-
----
-
-## dsap stats
-
-```
-dsap stats
+```bash
+dsap list                         # All problems
+dsap list --limit 100             # Limit results
+dsap list --difficulty Hard       # Filter difficulty
+dsap list --category "Graphs"     # Filter category
+dsap list --due                   # Only due problems
+dsap list --set neetcode150       # Filter by set
 ```
 
-Displays:
+### dsap reset
 
-- problem counts
-- review schedule
-- streaks
-- progress by difficulty
+Reset progress (use with caution).
+
+```bash
+dsap reset --progress              # Reset all progress, keep problems
+dsap reset --all                   # Delete everything
+dsap reset --set blind75 --progress  # Reset one set's progress
+```
+
+Warning: Reset actions cannot be undone.
 
 ---
 
-## dsap load
+## Custom Problems
 
-Load bundled or custom sets.
+### Add Single Problem
 
-```
-dsap load --list
-dsap load blind75
-dsap load neetcode150
-dsap load grind75
-dsap load ./custom.yaml
-```
-
----
-
-## dsap add
-
-Add a custom problem.
-
-```
+```bash
 dsap add
 ```
 
-Prompts:
+Prompts for: title, url, difficulty, category
 
-- title
-- url
-- difficulty
-- category
-
----
-
-## dsap config
-
-View or update settings.
-
-```
-dsap config --list
-dsap config preferred_set blind75
-dsap config daily_goal 5
-dsap config auto_open_browser false
-```
-
----
-
-## dsap reset
-
-Reset problems or progress.
-
-```
-dsap reset --progress
-dsap reset --all
-dsap reset --set blind75 --progress
-```
-
-Warning: reset actions cannot be undone.
-
----
-
-# 6. Configuration
-
-| Setting | Default | Allowed Values | Description |
-|--------|---------|----------------|-------------|
-| preferred_set | None | blind75, neetcode150, grind75 | Default problem set |
-| daily_goal | 5 | 1-100 | Target problems per day |
-| preferred_difficulty | None | Easy, Medium, Hard | Difficulty filter |
-| show_hints | true | true, false | Display hints |
-| auto_open_browser | true | true, false | Open problems in browser |
-
----
-
-# 7. Problem Sets
-
-| Set | Problems | Description |
-|----|----------|-------------|
-| blind75 | 75 | Core interview problems |
-| neetcode150 | 150 | Comprehensive curriculum |
-| grind75 | 75 | Flexible study roadmap |
-
-Load sets:
-
-```
-dsap load blind75
-dsap load neetcode150
-```
-
----
-
-# 8. Custom Problems
-
-Add one problem:
-
-```
-dsap add
-```
-
-Create a YAML set:
+### Create YAML Set
 
 ```yaml
 metadata:
@@ -368,195 +180,182 @@ categories:
       - title: Two Sum
         url: https://leetcode.com/problems/two-sum/
         difficulty: Easy
+        tags:
+          - array
+          - hash-table
+
+  - name: Graphs
+    problems:
+      - title: Number of Islands
+        url: https://leetcode.com/problems/number-of-islands/
+        difficulty: Medium
 ```
 
-Load it:
+Load custom set:
 
-```
-dsap load my-problems.yaml
+```bash
+dsap load ./my-problems.yaml
 ```
 
 ---
 
-# 9. How SM-2 Works
+## Common Scenarios
 
-DSAP uses the SM-2 spaced repetition algorithm.
+### Starting Fresh
 
-Typical interval growth:
-
-```
-1 day
-6 days
-15 days
-38 days
-95 days
-```
-
-After several successful reviews a problem may appear only every few months.
-
----
-
-## Easiness Factor (EF)
-
-Each problem has an EF value.
-
-| EF Range | Meaning |
-|--------|---------|
-| 2.5+ | Easy for you |
-| 2.0-2.5 | Moderate difficulty |
-| 1.3-2.0 | Hard for you |
-
-Lower EF → shorter review intervals.
-
----
-
-# 10. Common Scenarios
-
-## Starting From Scratch
-
-```
+```bash
 dsap load blind75
 dsap config preferred_set blind75
 dsap next --new-only
 ```
 
----
+### Too Many Due Reviews
 
-## Too Many Reviews
+Focus on clearing the backlog:
 
+```bash
+dsap stats                 # Check how many are due
+dsap review --limit 10     # Clear 10 at a time
 ```
-dsap stats
-dsap review --limit 10
-```
 
-Focus on clearing reviews first.
+### Practice Specific Topic
 
----
-
-## Practice a Specific Topic
-
-```
+```bash
 dsap next --category "Dynamic Programming"
+dsap list --category "Trees" --due
+```
+
+### Switching Problem Sets
+
+```bash
+dsap load neetcode150
+dsap config preferred_set neetcode150
 ```
 
 ---
 
-# 11. Interview Prep Strategies
+## Interview Prep Strategies
 
-### 2-Week Plan
+### 2-Week Intensive Plan
 
 | Week | Focus | Daily Goal |
-|-----|------|-----------|
-| Week 1 | Easy + Medium | 5-7 problems |
-| Week 2 | Medium + Hard | 3-5 problems |
+|------|-------|------------|
+| 1 | Easy + Medium | 5-7 problems |
+| 2 | Medium + Hard | 3-5 problems |
 
----
-
-### 1-Month Plan
+### 1-Month Gradual Plan
 
 | Week | Focus |
-|------|------|
-| 1-2 | Easy problems |
-| 3-4 | Medium problems |
-| 5+ | Hard problems |
+|------|-------|
+| 1-2 | Easy problems, build foundation |
+| 3-4 | Medium problems, pattern recognition |
+| 5+ | Hard problems, edge cases |
+
+### Day Before Interview
+
+```bash
+dsap review --limit 5   # Light review
+dsap stats              # Check your progress
+```
+
+Focus on problems you've struggled with (low EF).
 
 ---
 
-# 12. Troubleshooting
+## Troubleshooting
 
-## No Problems Found
+### No Problems Found
 
-Load a set first.
+Load a problem set first:
 
+```bash
+dsap load blind75
 ```
+
+### Command Not Found
+
+Reinstall:
+
+```bash
+uv tool install dsap-cli --force
+```
+
+### Browser Not Opening
+
+Check configuration:
+
+```bash
+dsap config auto_open_browser true
+```
+
+### Database Corrupted
+
+Restore from backup or reset:
+
+```bash
+dsap reset --all
 dsap load blind75
 ```
 
 ---
 
-## Command Not Found
+## Data Management
 
-Reinstall the CLI.
-
-```
-uv tool install dsap-cli --force
-```
-
----
-
-## Browser Not Opening
-
-```
-dsap config auto_open_browser true
-```
-
----
-
-# 13. Data Management
-
-## File Locations
+### File Locations
 
 ```
 ~/.dsap/
-├── dsap.db
-└── config.json
+├── dsap.db       # SQLite database (problems, progress)
+└── config.json   # User preferences
 ```
 
----
+### Backup
 
-## Backup Data
-
-```
+```bash
 cp -r ~/.dsap ~/.dsap-backup
 ```
 
----
+### Restore
 
-## Restore Data
-
-```
+```bash
 rm -rf ~/.dsap
 cp -r ~/.dsap-backup ~/.dsap
 ```
 
----
+### Export Progress
 
-## Uninstall Completely
+Query the database directly:
 
+```bash
+sqlite3 ~/.dsap/dsap.db "SELECT * FROM progress"
 ```
+
+### Complete Uninstall
+
+```bash
 uv tool uninstall dsap-cli
 rm -rf ~/.dsap
 ```
 
 ---
 
-# Quick Reference
+## Quick Reference
 
 ```
-Daily
+Daily:
+  dsap stats
+  dsap review
+  dsap next
 
-dsap stats
-dsap review
-dsap next
+Filters:
+  --set blind75
+  --difficulty Medium
+  --category "Arrays"
+  --limit 10
+  --new-only
+  --due
 
-Setup
-
-dsap load blind75
-dsap config preferred_set blind75
-
-Filters
-
---set
---difficulty
---category
---limit
---new-only
---due
-```
-
-For full command help:
-
-```
-dsap --help
-dsap <command> --help
+Help:
+  dsap --help
+  dsap <command> --help
 ```

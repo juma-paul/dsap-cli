@@ -17,5 +17,9 @@ Quick Start:
     $ dsap review
 """
 
-__version__ = "0.1.0"
-__author__ = "Juma R. Paul"
+try:
+    from dsap._version import __version__
+except ImportError:
+    __version__ = "0.0.0.dev"
+
+__author__ = "Juma Paul"
