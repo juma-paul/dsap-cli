@@ -486,6 +486,17 @@ class Database:
 
             if existing:
                 # Update existing
+
+                next_review_value = (
+                    sm2_state.next_review.isoformat() if sm2_state.next_review else None
+                )
+
+                last_reviewed_value = (
+                    sm2_state.last_reviewed.isoformat()
+                    if sm2_state.last_reviewed
+                    else None
+                )
+
                 conn.execute(
                     """
                     UPDATE progress SET
@@ -499,24 +510,15 @@ class Database:
                             WHEN ? >= 3 AND solved = 0 THEN ?
                             ELSE solved_at
                         END,
-                        solved_at = CASE 
-                            WHEN ? >= 3 AND solved = 0 THEN ? 
-                            ELSE solved_at 
-                        END,
                         last_quality = ?
                     WHERE problem_id = ?
-                """,
+                    """,
                     (
                         sm2_state.easiness_factor,
                         sm2_state.interval,
                         sm2_state.repetitions,
-                        sm2_state.next_review.isoformat()
-                        if sm2_state.next_review
-                        else None,
-                        sm2_state.last_reviewed.isoformat()
-                        if sm2_state.last_reviewed
-                        else None,
-                        quality,
+                        next_review_value,
+                        last_reviewed_value,
                         quality,
                         now.isoformat(),
                         quality,
