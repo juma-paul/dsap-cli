@@ -10,7 +10,7 @@
 
 DSAP is a terminal-first CLI that schedules coding interview problems using the **SM-2 spaced repetition algorithm**, <br />helping you retain patterns long-term instead of forgetting them after solving once.
 
-## ![dsap-cli Demo](assets/dsap-cli.gif)
+![dsap-cli Demo](https://raw.githubusercontent.com/juma-paul/dsap-cli/main/assets/dsap-cli.gif)
 
 # Why DSAP?
 
@@ -234,13 +234,13 @@ uv run pytest
 
 See the full release history in:
 
-[CHANGELOG.md](./CHANGELOG.md)
+[CHANGELOG.md](https://github.com/juma-paul/dsap-cli/blob/main/CHANGELOG.md)
 
 ---
 
 # License
 
-This project is open source and available under the [MIT License](./LICENSE).
+This project is open source and available under the [MIT License](https://github.com/juma-paul/dsap-cli/blob/main/LICENSE).
 
 ---
 

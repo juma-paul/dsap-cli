@@ -13,6 +13,7 @@ from collections.abc import Iterator
 from contextlib import contextmanager
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Any
 
 from dsap.models import (
     Difficulty,
@@ -221,7 +222,7 @@ class Database:
             List of (Problem, ProblemProgress or None) tuples
         """
         conditions = []
-        params: list = []
+        params: list[Any] = []
 
         if difficulty:
             conditions.append("p.difficulty = ?")
@@ -323,7 +324,7 @@ class Database:
         """
         now = datetime.now().isoformat()
         conditions = ["(pr.next_review <= ? OR pr.next_review IS NULL)"]
-        params: list = [now]
+        params: list[Any] = [now]
 
         if difficulty:
             conditions.append("p.difficulty = ?")
@@ -362,7 +363,7 @@ class Database:
     ) -> list[Problem]:
         """Get problems that have never been reviewed."""
         conditions = ["pr.problem_id IS NULL"]
-        params: list = []
+        params: list[Any] = []
 
         if problem_set:
             conditions.append("p.problem_set = ?")
@@ -401,7 +402,7 @@ class Database:
         with self._connect() as conn:
             # Build common WHERE conditions
             conditions = []
-            params: list = []
+            params: list[Any] = []
 
             if difficulty:
                 conditions.append("p.difficulty = ?")
