@@ -125,11 +125,12 @@ def display_problem(
     if progress:
         lines.append("")
         lines.append("[bold]Your Progress:[/bold]")
-        status = (
-            "[green]Solved[/green]"
-            if progress.solved
-            else "[yellow]In Progress[/yellow]"
-        )
+        if progress.solved:
+            status = "[green]Solved[/green]"
+        elif progress.attempts == 0:
+            status = "[dim]New[/dim]"
+        else:
+            status = "[yellow]In Progress[/yellow]"
         lines.append(f"  Status: {status} | Attempts: {progress.attempts}")
         lines.append(
             f"  EF: {progress.easiness_factor:.2f} | Interval: {progress.interval} days"
@@ -351,6 +352,8 @@ def display_problem_list(
         if progress:
             if progress.solved:
                 status = "[green]Solved[/green]"
+            elif progress.attempts == 0:
+                status = "[dim]New[/dim]"
             else:
                 status = f"[yellow]{progress.attempts}x[/yellow]"
             ef = f"{progress.easiness_factor:.1f}"

@@ -272,14 +272,25 @@ class TestProgressOperations(TestDatabase):
 
 
 class TestNextRecommendation(TestDatabase):
-    """Tests for get_next_recommendation."""
+    """Tests for get_next_recommendation.
 
-    def test_recommends_due_first(self, db_with_problems: Database):
-        """Due problems are recommended before new ones."""
-        # Make one problem due
+    get_next_recommendation returns only new (never-attempted) problems.
+    Use get_due_problems() for scheduled reviews.
+    """
+
+    def test_recommends_new_problem(self, db_with_problems: Database):
+        """Returns a new (never-attempted) problem."""
+        recommendation = db_with_problems.get_next_recommendation()
+        assert recommendation is not None
+        _problem, progress = recommendation
+        assert progress is None  # New problem has no progress record
+
+    def test_does_not_recommend_due_problems(self, db_with_problems: Database):
+        """Due problems are NOT returned — those belong in dsap review."""
         results = db_with_problems.get_problems()
         problem_id = results[0][0].id
 
+        # Rate the first problem (now it has a progress record)
         due_state = SM2State(
             easiness_factor=2.5,
             interval=1,
@@ -288,45 +299,33 @@ class TestNextRecommendation(TestDatabase):
         )
         db_with_problems.update_progress(problem_id, due_state, quality=4)
 
+        # get_next_recommendation should return a different (still new) problem
         recommendation = db_with_problems.get_next_recommendation()
         assert recommendation is not None
         problem, progress = recommendation
-        assert problem.id == problem_id
-        assert progress is not None
+        assert problem.id != problem_id  # Not the rated one
+        assert progress is None  # Still a new problem
 
-    def test_recommends_new_when_no_due(self, db_with_problems: Database):
-        """New problems are recommended when none are due."""
-        recommendation = db_with_problems.get_next_recommendation()
-        assert recommendation is not None
-        _problem, progress = recommendation
-        assert progress is None  # New problem
-
-    def test_recommends_hardest_when_all_reviewed(
+    def test_returns_none_when_all_problems_started(
         self,
         db_with_problems: Database,
     ):
-        """Hardest (lowest EF) recommended when all reviewed."""
-        # Review all problems with future dates
+        """Returns None when every problem has been rated at least once."""
         results = db_with_problems.get_problems()
         for problem, _ in results:
-            future = datetime.now() + timedelta(days=30)
-            # Use different EFs
-            ef = 2.5 if problem.title != "3Sum" else 1.5  # 3Sum is hardest
             state = SM2State(
-                easiness_factor=ef,
-                interval=30,
-                repetitions=5,
-                next_review=future,
+                easiness_factor=2.5,
+                interval=1,
+                repetitions=1,
+                next_review=datetime.now() + timedelta(days=1),
             )
             db_with_problems.update_progress(problem.id, state, quality=4)
 
         recommendation = db_with_problems.get_next_recommendation()
-        assert recommendation is not None
-        problem, _ = recommendation
-        assert problem.title == "3Sum"  # Lowest EF
+        assert recommendation is None
 
     def test_filter_by_difficulty(self, db_with_problems: Database):
-        """Filter recommendations by difficulty."""
+        """Filter new recommendations by difficulty."""
         recommendation = db_with_problems.get_next_recommendation(difficulty="Hard")
         assert recommendation is not None
         problem, _ = recommendation

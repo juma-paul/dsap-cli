@@ -390,81 +390,40 @@ class Database:
         difficulty: str | None = None,
         category: str | None = None,
         problem_set: str | None = None,
-        new_only: bool = False,
-    ) -> tuple[Problem, ProblemProgress | None] | None:
-        """Get the next recommended problem using SM-2 priorities.
+    ) -> tuple[Problem, None] | None:
+        """Get the next new (never-attempted) problem.
 
-        Priority order:
-        1. Due problems (most overdue first)
-        2. New problems (never reviewed)
-        3. Hardest problems (lowest EF)
+        Returns the first problem that has no progress record, ordered by
+        problem number. Use get_due_problems() for scheduled reviews.
         """
+        conditions = ["pr.problem_id IS NULL"]
+        params: list[Any] = []
+
+        if difficulty:
+            conditions.append("p.difficulty = ?")
+            params.append(difficulty)
+        if category:
+            conditions.append("p.category = ?")
+            params.append(category)
+        if problem_set:
+            conditions.append("p.problem_set = ?")
+            params.append(problem_set)
+
+        where_clause = " AND ".join(conditions)
+
+        query = f"""
+            SELECT p.*
+            FROM problems p
+            LEFT JOIN progress pr ON p.id = pr.problem_id
+            WHERE {where_clause}
+            ORDER BY p.problem_number ASC
+            LIMIT 1
+        """
+
         with self._connect() as conn:
-            # Build common WHERE conditions
-            conditions = []
-            params: list[Any] = []
-
-            if difficulty:
-                conditions.append("p.difficulty = ?")
-                params.append(difficulty)
-            if category:
-                conditions.append("p.category = ?")
-                params.append(category)
-            if problem_set:
-                conditions.append("p.problem_set = ?")
-                params.append(problem_set)
-
-            base_where = " AND ".join(conditions) if conditions else "1=1"
-
-            # Priority 1: Due problems
-            if not new_only:
-                now = datetime.now().isoformat()
-                due_query = f"""
-                    SELECT p.*, pr.*
-                    FROM problems p
-                    JOIN progress pr ON p.id = pr.problem_id
-                    WHERE {base_where}
-                    AND (pr.next_review <= ? OR pr.next_review IS NULL)
-                    ORDER BY pr.next_review ASC NULLS FIRST
-                    LIMIT 1
-                """
-                row = conn.execute(due_query, params + [now]).fetchone()
-                if row:
-                    return self._row_to_problem_with_progress(row)
-
-            # Priority 2: New problems
-            new_query = f"""
-                SELECT p.*, NULL as problem_id, NULL as easiness_factor,
-                       NULL as interval, NULL as repetitions, NULL as next_review,
-                       NULL as last_reviewed, NULL as attempts, NULL as solved,
-                       NULL as first_attempted, NULL as solved_at,
-                       NULL as last_quality, NULL as notes,
-                       NULL as time_spent_minutes
-                FROM problems p
-                LEFT JOIN progress pr ON p.id = pr.problem_id
-                WHERE {base_where}
-                AND pr.problem_id IS NULL
-                ORDER BY p.problem_number ASC
-                LIMIT 1
-            """
-            row = conn.execute(new_query, params).fetchone()
+            row = conn.execute(query, params).fetchone()
             if row:
                 return (self._row_to_problem(row), None)
-
-            # Priority 3: Hardest problems (lowest EF)
-            if not new_only:
-                hard_query = f"""
-                    SELECT p.*, pr.*
-                    FROM problems p
-                    JOIN progress pr ON p.id = pr.problem_id
-                    WHERE {base_where}
-                    ORDER BY pr.easiness_factor ASC
-                    LIMIT 1
-                """
-                row = conn.execute(hard_query, params).fetchone()
-                if row:
-                    return self._row_to_problem_with_progress(row)
-
             return None
 
     def update_progress(
@@ -507,6 +466,11 @@ class Database:
                         next_review = ?,
                         last_reviewed = ?,
                         attempts = attempts + 1,
+                        solved = CASE WHEN ? >= 3 THEN 1 ELSE solved END,
+                        first_attempted = CASE
+                            WHEN first_attempted IS NULL THEN ?
+                            ELSE first_attempted
+                        END,
                         solved_at = CASE
                             WHEN ? >= 3 AND solved = 0 THEN ?
                             ELSE solved_at
@@ -520,10 +484,12 @@ class Database:
                         sm2_state.repetitions,
                         next_review_value,
                         last_reviewed_value,
-                        quality,
-                        now.isoformat(),
-                        quality,
-                        problem_id,
+                        quality,  # solved CASE
+                        now.isoformat(),  # first_attempted CASE
+                        quality,  # solved_at CASE
+                        now.isoformat(),  # solved_at THEN
+                        quality,  # last_quality
+                        problem_id,  # WHERE
                     ),
                 )
             else:
@@ -579,7 +545,7 @@ class Database:
             # Progress stats
             progress_stats = conn.execute("""
                 SELECT
-                    COUNT(*) as reviewed,
+                    SUM(CASE WHEN attempts > 0 THEN 1 ELSE 0 END) as reviewed,
                     SUM(CASE WHEN solved = 1 THEN 1 ELSE 0 END) as solved,
                     AVG(easiness_factor) as avg_ef,
                     SUM(attempts) as total_reviews

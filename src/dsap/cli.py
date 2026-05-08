@@ -118,11 +118,8 @@ def review(limit: int, difficulty: str, category: str, problem_set: str) -> None
     if not problem_set:
         problem_set = config.get("preferred_set")
 
-    # Normalize the set name
-    normalized = normalize_set_name(problem_set)
-    if normalized is None:
-        raise ValueError("Invalid problem set name")
-    problem_set = normalized
+    # Normalize the set name (None means no filter — that's fine)
+    problem_set = normalize_set_name(problem_set)
 
     # Get due problems
     due_problems = db.get_due_problems(
@@ -215,23 +212,17 @@ def review(limit: int, difficulty: str, category: str, problem_set: str) -> None
     "problem_set",
     help="Filter by problem set (e.g., blind75, neetcode150)",
 )
-@click.option(
-    "--new-only", "-n", is_flag=True, help="Only show problems never attempted"
-)
-def next(difficulty: str, category: str, problem_set: str, new_only: bool) -> None:
-    r"""Get the next recommended problem to practice.
+def next(difficulty: str, category: str, problem_set: str) -> None:
+    r"""Get the next new problem to practice.
 
-    Recommends based on:
-    1. Problems due for review (highest priority)
-    2. New problems you haven't tried yet
-    3. Problems with low easiness factors (harder for you)
+    Shows a problem you have never attempted before. For scheduled
+    review of problems you have already seen, use 'dsap review'.
 
     \b
     Example:
-      dsap next                  Get next recommended problem
-      dsap next -d Easy          Get an easy problem
-      dsap next --new-only       Get a new problem only
-      dsap next -s blind75       Get from Blind 75 only
+      dsap next                  Get next new problem
+      dsap next -d Easy          Get a new easy problem
+      dsap next -s blind75       Get a new problem from Blind 75
     """
     db = Database()
     config = get_config()
@@ -240,67 +231,57 @@ def next(difficulty: str, category: str, problem_set: str, new_only: bool) -> No
     if not problem_set:
         problem_set = config.get("preferred_set")
 
-    # Normalize the set name
-    normalized = normalize_set_name(problem_set)
-    if normalized is None:
-        raise ValueError("Invalid problem set name")
-    problem_set = normalized
+    # Normalize the set name (None means no filter — that's fine)
+    problem_set = normalize_set_name(problem_set)
 
     result = db.get_next_recommendation(
         difficulty=difficulty,
         category=category,
         problem_set=problem_set,
-        new_only=new_only,
     )
 
     if not result:
-        if difficulty or category:
-            display_warning("No problems found matching your filters.")
+        if difficulty or category or problem_set:
+            display_warning("No new problems found matching your filters.")
         else:
-            display_info("No problems available. Try loading a problem set:")
-            console.print("  dsap load blind75")
+            new_problems_exist = db.get_new_problems(limit=1)
+            if not new_problems_exist:
+                display_info(
+                    "All problems started! Run [bold]dsap review[/bold] "
+                    "for your scheduled reviews."
+                )
+            else:
+                display_info("No problems available. Try loading a problem set:")
+                console.print("  dsap load blind75")
         return
 
-    problem, progress = result
+    problem, _ = result
 
-    # Ensure progress record exists
-    if progress is None:
-        if problem.id is None:
-            raise ValueError("Problem has no ID")
-
-        db.ensure_progress_exists(problem.id)
-
-    # Display the problem
+    # Display the problem (no progress yet — it's new)
     display_problem(
         problem,
-        progress=progress,
+        progress=None,
         show_hints=config.get("show_hints"),
     )
 
-    # Prompt to open and optionally rate
+    # Prompt to open in browser
     auto_open = config.get("auto_open_browser")
-    opened = prompt_open_browser(str(problem.url), auto_open=auto_open)
+    prompt_open_browser(str(problem.url), auto_open=auto_open)
 
-    if opened:
-        console.print()
-        rate_now = click.confirm("Rate this problem now?", default=True)
+    # Always offer rating regardless of whether browser was opened.
+    # User may solve via the clickable link in the terminal.
+    console.print()
+    rate_now = click.confirm("Rate this problem now?", default=True)
 
-        if rate_now:
-            quality = prompt_quality_rating()
+    if rate_now:
+        quality = prompt_quality_rating()
 
-            if quality is not None:
-                current_state = SM2State(
-                    easiness_factor=progress.easiness_factor if progress else 2.5,
-                    interval=progress.interval if progress else 0,
-                    repetitions=progress.repetitions if progress else 0,
-                )
-                new_state = process_review(current_state, quality)
-
-                if problem.id is None:
-                    raise ValueError("Problem has no ID")
-                db.update_progress(problem.id, new_state, quality)
-
-                display_review_feedback(quality, new_state.interval)
+        if quality is not None:
+            if problem.id is None:
+                raise ValueError("Problem has no ID")
+            new_state = process_review(SM2State(), quality)
+            db.update_progress(problem.id, new_state, quality)
+            display_review_feedback(quality, new_state.interval)
 
 
 @cli.command("list")
@@ -334,11 +315,8 @@ def list_problems(
     """
     db = Database()
 
-    # Normalize set name
-    normalized = normalize_set_name(problem_set)
-    if normalized is None:
-        raise ValueError("Invalid problem set name")
-    problem_set = normalized
+    # Normalize set name (None means no filter — that's fine)
+    problem_set = normalize_set_name(problem_set)
 
     problems = db.get_problems(
         difficulty=difficulty,
@@ -595,11 +573,8 @@ def reset(
 
     db = Database()
 
-    # Normalize set name
-    normalized = normalize_set_name(problem_set)
-    if normalized is None:
-        raise ValueError("Invalid problem set name")
-    problem_set = normalized
+    # Normalize set name (None means no filter — that's fine)
+    problem_set = normalize_set_name(problem_set)
 
     # Build description of what will be reset
     scope = f"'{problem_set}'" if problem_set else "all"
