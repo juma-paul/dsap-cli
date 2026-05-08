@@ -141,6 +141,16 @@ class Database:
                 ON sessions(date);
             """)
 
+            # Fix rows where first_attempted was back-filled after solved_at
+            # (introduced by v1.1.0 when first_attempted was NULL for old records)
+            conn.execute("""
+                UPDATE progress
+                SET first_attempted = solved_at
+                WHERE first_attempted IS NOT NULL
+                  AND solved_at IS NOT NULL
+                  AND first_attempted > solved_at
+            """)
+
     # ==================== Problem Operations ====================
 
     def add_problem(self, problem: Problem) -> int:
@@ -472,8 +482,9 @@ class Database:
                         attempts = attempts + 1,
                         solved = CASE WHEN ? >= 3 THEN 1 ELSE solved END,
                         first_attempted = CASE
-                            WHEN first_attempted IS NULL THEN ?
-                            ELSE first_attempted
+                            WHEN first_attempted IS NOT NULL THEN first_attempted
+                            WHEN solved_at IS NOT NULL THEN solved_at
+                            ELSE ?
                         END,
                         solved_at = CASE
                             WHEN ? >= 3 AND solved = 0 THEN ?

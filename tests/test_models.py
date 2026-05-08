@@ -194,15 +194,17 @@ class TestProblemProgress:
             make_progress(last_quality=-1)
 
     def test_solved_date_validation(self) -> None:
+        # When solved_at is before first_attempted, first_attempted is coerced
+        # to match solved_at rather than raising — supports legacy data.
         first = datetime.now()
         before_first = first - timedelta(days=1)
 
-        with pytest.raises(ValueError, match="solved_at cannot be before"):
-            make_progress(
-                first_attempted=first,
-                solved_at=before_first,
-                solved=True,
-            )
+        progress = make_progress(
+            first_attempted=first,
+            solved_at=before_first,
+            solved=True,
+        )
+        assert progress.first_attempted == before_first
 
     def test_solved_sets_solved_at(self) -> None:
         progress = make_progress(solved=True)

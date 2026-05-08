@@ -2,6 +2,18 @@
 
 All notable changes to DSAP will be documented here.
 
+## [1.1.3] - 2026-05-08
+
+### Fixed
+
+- `dsap list` crashed with `ValidationError: solved_at cannot be before
+  first_attempted` for users who reviewed problems before v1.1.0. Root cause:
+  v1.1.0 back-filled `first_attempted` with the current timestamp on the next
+  review, which landed after the already-stored `solved_at`. Fix: the validator
+  now coerces `first_attempted` to `solved_at` instead of raising; a one-time
+  migration runs on startup to correct existing rows; and the UPDATE query
+  no longer sets `first_attempted` later than `solved_at`.
+
 ## [1.1.2] - 2026-05-08
 
 ### Fixed
@@ -98,6 +110,7 @@ Initial release.
 
 ---
 
+[1.1.3]: https://github.com/juma-paul/dsap-cli/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/juma-paul/dsap-cli/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/juma-paul/dsap-cli/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/juma-paul/dsap-cli/compare/v1.0.2...v1.1.0

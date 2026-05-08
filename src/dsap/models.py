@@ -129,7 +129,10 @@ class ProblemProgress(DSAPBaseModel):
             and self.first_attempted
             and self.solved_at < self.first_attempted
         ):
-            raise ValueError("solved_at cannot be before first_attempted")
+            # Coerce: first_attempted cannot be later than solved_at.
+            # This can happen with data written by older versions where
+            # first_attempted was back-filled after solved_at was set.
+            self.first_attempted = self.solved_at
 
         if self.solved and self.solved_at is None:
             self.solved_at = datetime.now()
