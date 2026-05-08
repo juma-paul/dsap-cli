@@ -91,6 +91,34 @@ class TestSM2State:
         assert state.is_due() is False
 
 
+class TestDaysUntilReview:
+    """Tests for SM2State.days_until_review()."""
+
+    def test_no_next_review_returns_zero(self) -> None:
+        state = SM2State()
+        assert state.days_until_review() == 0
+
+    def test_future_returns_positive(self) -> None:
+        now = datetime(2026, 1, 1, 12, 0, 0)
+        state = SM2State(next_review=now + timedelta(days=7))
+        assert state.days_until_review(now=now) == 7
+
+    def test_past_returns_negative(self) -> None:
+        now = datetime(2026, 1, 1, 12, 0, 0)
+        state = SM2State(next_review=now - timedelta(days=3))
+        assert state.days_until_review(now=now) == -3
+
+    def test_due_today_same_time_returns_zero(self) -> None:
+        now = datetime(2026, 1, 1, 12, 0, 0)
+        state = SM2State(next_review=now)
+        assert state.days_until_review(now=now) == 0
+
+    def test_one_day_future(self) -> None:
+        now = datetime(2026, 1, 1, 12, 0, 0)
+        state = SM2State(next_review=now + timedelta(days=1))
+        assert state.days_until_review(now=now) == 1
+
+
 class TestCalculateEasinessFactor:
     """
     Tests for the EF calculation formula.

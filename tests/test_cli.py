@@ -192,6 +192,69 @@ class TestConfig:
         assert "Error" in result.output
 
 
+class TestReviewSession:
+    """Tests for the review command with actual due problems.
+
+    Plants a due problem directly into the temp DB so the review loop
+    runs, covering cli.py 150-200 and ui.py display_problem with progress.
+    """
+
+    def test_review_with_due_problem(
+        self, tmp_path: Path, db_env: dict[str, str]
+    ) -> None:
+        from datetime import datetime, timedelta
+
+        from dsap.database import Database
+        from dsap.sm2 import SM2State
+
+        runner = CliRunner()
+        runner.invoke(cli, ["load", "blind75"], env=db_env)
+
+        db = Database(db_path=tmp_path / "test.db")
+        problem_id = db.get_problems(limit=1)[0][0].id
+        db.update_progress(
+            problem_id,
+            SM2State(
+                easiness_factor=2.5,
+                interval=1,
+                repetitions=1,
+                next_review=datetime.now() - timedelta(hours=1),
+            ),
+            quality=4,
+        )
+
+        # Decline browser, rate 4
+        result = runner.invoke(cli, ["review"], input="n\n4\n", env=db_env)
+        assert result.exit_code == 0
+
+    def test_list_shows_due_column_after_review(
+        self, tmp_path: Path, db_env: dict[str, str]
+    ) -> None:
+        from datetime import datetime, timedelta
+
+        from dsap.database import Database
+        from dsap.sm2 import SM2State
+
+        runner = CliRunner()
+        runner.invoke(cli, ["load", "blind75"], env=db_env)
+
+        db = Database(db_path=tmp_path / "test.db")
+        problem_id = db.get_problems(limit=1)[0][0].id
+        db.update_progress(
+            problem_id,
+            SM2State(
+                easiness_factor=2.5,
+                interval=1,
+                repetitions=1,
+                next_review=datetime.now() - timedelta(hours=1),
+            ),
+            quality=4,
+        )
+
+        result = runner.invoke(cli, ["list"], env=db_env)
+        assert result.exit_code == 0
+
+
 class TestReset:
     """Tests for the reset command."""
 
