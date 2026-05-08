@@ -2,6 +2,15 @@
 
 All notable changes to DSAP will be documented here.
 
+## [1.1.2] - 2026-05-08
+
+### Fixed
+
+- `dsap review` did not show problems due today if their scheduled time
+  hadn't arrived yet (e.g. due at 23:00 but reviewing at 10:00). Due
+  detection now compares calendar dates instead of exact datetimes, so
+  anything due today appears immediately.
+
 ## [1.1.1] - 2026-05-08
 
 ### Added
@@ -20,10 +29,6 @@ All notable changes to DSAP will be documented here.
 - `dsap review` and `dsap list` showed raw `YYYY-MM-DD` dates for next
   review. Now displays human-readable relative strings: `Overdue by 3 days`,
   `Due today`, `In 7 days`.
-- `dsap review` did not show problems due today if their scheduled time
-  hadn't arrived yet (e.g. due at 23:00 but reviewing at 10:00). Due
-  detection now compares calendar dates instead of exact datetimes, so
-  anything due today appears immediately.
 
 ## [1.1.0] - 2026-05-08
 
@@ -93,6 +98,7 @@ Initial release.
 
 ---
 
+[1.1.2]: https://github.com/juma-paul/dsap-cli/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/juma-paul/dsap-cli/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/juma-paul/dsap-cli/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/juma-paul/dsap-cli/compare/v1.0.1...v1.0.2
