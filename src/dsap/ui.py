@@ -8,6 +8,7 @@ Provides beautiful terminal output using Rich library:
 """
 
 import webbrowser
+from datetime import datetime
 
 from rich import box
 from rich.console import Console
@@ -136,7 +137,15 @@ def display_problem(
             f"  EF: {progress.easiness_factor:.2f} | Interval: {progress.interval} days"
         )
         if progress.next_review:
-            lines.append(f"  Next review: {progress.next_review.strftime('%Y-%m-%d')}")
+            now = datetime.now()
+            delta = (progress.next_review - now).days
+            if delta < 0:
+                due_str = f"Overdue by {abs(delta)} day{'s' if abs(delta) != 1 else ''}"
+            elif delta == 0:
+                due_str = "Due today"
+            else:
+                due_str = f"In {delta} day{'s' if delta != 1 else ''}"
+            lines.append(f"  Next review: {due_str}")
 
     # Hints (optional)
     if show_hints and problem.hints:
@@ -342,6 +351,7 @@ def display_problem_list(
     table.add_column("Category", max_width=25)
     table.add_column("Status", justify="center", width=10)
     table.add_column("EF", justify="right", width=5)
+    table.add_column("Due", justify="right", width=10)
 
     if show_url:
         table.add_column("URL", max_width=30)
@@ -361,6 +371,18 @@ def display_problem_list(
             status = "[dim]New[/dim]"
             ef = "-"
 
+        if progress and progress.next_review:
+            now = datetime.now()
+            delta = (progress.next_review - now).days
+            if delta < 0:
+                due_text = f"[red]{abs(delta)}d late[/red]"
+            elif delta == 0:
+                due_text = "[yellow]today[/yellow]"
+            else:
+                due_text = f"[dim]in {delta}d[/dim]"
+        else:
+            due_text = "[dim]—[/dim]"
+
         # Make title clickable
         title_link = make_link(str(problem.url), problem.title[:38])
 
@@ -371,6 +393,7 @@ def display_problem_list(
             problem.category[:23],
             status,
             ef,
+            due_text,
         ]
 
         if show_url:

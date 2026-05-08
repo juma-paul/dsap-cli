@@ -256,19 +256,20 @@ class TestProgressOperations(TestDatabase):
         new_problems = db_with_problems.get_new_problems()
         assert len(new_problems) == 3
 
-    def test_ensure_progress_exists(
-        self,
-        db: Database,
-        sample_problem: Problem,
-    ):
-        """ensure_progress_exists creates minimal progress."""
-        problem_id = db.add_problem(sample_problem)
-        db.ensure_progress_exists(problem_id)
+    def test_count_new_problems(self, db_with_problems: Database):
+        """count_new_problems returns accurate count without fetching rows."""
+        total = db_with_problems.count_new_problems()
+        assert total == 4  # All problems start as new
 
-        results = db.get_problems()
-        _, progress = results[0]
-        assert progress is not None
-        assert progress.easiness_factor == 2.5  # Default
+        # Rate one problem — count should drop by 1
+        results = db_with_problems.get_problems()
+        problem_id = results[0][0].id
+        from dsap.sm2 import SM2State, process_review
+
+        state = process_review(SM2State(), quality=4)
+        db_with_problems.update_progress(problem_id, state, quality=4)
+
+        assert db_with_problems.count_new_problems() == 3
 
 
 class TestNextRecommendation(TestDatabase):

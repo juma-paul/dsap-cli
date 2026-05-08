@@ -133,11 +133,11 @@ def review(
 
     if not due_problems:
         # Check if there are new problems to start
-        new_problems = db.get_new_problems(limit=limit, problem_set=problem_set)
-        if new_problems:
+        new_count = db.count_new_problems(problem_set=problem_set)
+        if new_count:
             console.print(
                 f"[green]No problems due![/green] "
-                f"You have {len(new_problems)} new problems to start."
+                f"You have {new_count} new problems to start."
             )
             console.print("Run [bold]dsap next[/bold] to get a new problem.")
         else:

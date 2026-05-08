@@ -2,6 +2,25 @@
 
 All notable changes to DSAP will be documented here.
 
+## [1.1.1] - 2026-05-08
+
+### Added
+
+- `SM2State.days_until_review()` — returns days until next review as a
+  signed integer: positive (days remaining), 0 (due today), negative (overdue).
+- `Due` column in `dsap list` — shows relative timing (`in 7d`, `today`,
+  `3d late`) at a glance.
+- `DSAP_DB_PATH` environment variable — override the database path for
+  scripting and isolated testing without touching your real database.
+- CLI integration tests (`tests/test_cli.py`) — 28 end-to-end tests covering
+  all commands via `CliRunner`.
+
+### Fixed
+
+- `dsap review` and `dsap list` showed raw `YYYY-MM-DD` dates for next
+  review. Now displays human-readable relative strings: `Overdue by 3 days`,
+  `Due today`, `In 7 days`.
+
 ## [1.1.0] - 2026-05-08
 
 ### Changed
@@ -70,6 +89,7 @@ Initial release.
 
 ---
 
+[1.1.1]: https://github.com/juma-paul/dsap-cli/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/juma-paul/dsap-cli/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/juma-paul/dsap-cli/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/juma-paul/dsap-cli/compare/v1.0.0...v1.0.1

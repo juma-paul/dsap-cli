@@ -8,6 +8,7 @@ This module handles all database operations including:
 """
 
 import json
+import os
 import sqlite3
 from collections.abc import Iterator
 from contextlib import contextmanager
@@ -44,7 +45,10 @@ class Database:
                     Defaults to ~/.dsap/dsap.db
         """
         if db_path is None:
-            self.db_path = Path.home() / ".dsap" / "dsap.db"
+            env_path = os.environ.get("DSAP_DB_PATH")
+            self.db_path = (
+                Path(env_path) if env_path else Path.home() / ".dsap" / "dsap.db"
+            )
         else:
             self.db_path = db_path
 
@@ -523,16 +527,25 @@ class Database:
             # Update session for streak tracking
             self._update_daily_session(conn)
 
-    def ensure_progress_exists(self, problem_id: int) -> None:
-        """Ensure a progress record exists for a problem."""
+    def count_new_problems(self, problem_set: str | None = None) -> int:
+        """Count problems that have never been attempted."""
+        conditions = ["pr.problem_id IS NULL"]
+        params: list[Any] = []
+
+        if problem_set:
+            conditions.append("p.problem_set = ?")
+            params.append(problem_set)
+
+        where_clause = " AND ".join(conditions)
+
+        query = f"""
+            SELECT COUNT(*) FROM problems p
+            LEFT JOIN progress pr ON p.id = pr.problem_id
+            WHERE {where_clause}
+        """
+
         with self._connect() as conn:
-            conn.execute(
-                """
-                INSERT OR IGNORE INTO progress (problem_id)
-                VALUES (?)
-            """,
-                (problem_id,),
-            )
+            return int(conn.execute(query, params).fetchone()[0])
 
     # ==================== Statistics ====================
 

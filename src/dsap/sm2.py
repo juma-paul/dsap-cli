@@ -241,19 +241,17 @@ class SM2State:
         return now >= self.next_review
 
     def days_until_review(self, now: datetime | None = None) -> int:
-        """Calculate days until this item is due.
+        """Days until this item is due for review.
 
         Returns:
             Positive: days until due
-            Zero: due today
+            0: due today
             Negative: days overdue
         """
         if now is None:
             now = datetime.now()
-
         if self.next_review is None:
             return 0
-
         delta = self.next_review - now
         return delta.days
 
