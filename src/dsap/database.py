@@ -326,9 +326,9 @@ class Database:
 
         Ordered by: next_review ASC (most overdue first)
         """
-        now = datetime.now().isoformat()
-        conditions = ["(pr.next_review <= ? OR pr.next_review IS NULL)"]
-        params: list[Any] = [now]
+        today = datetime.now().date().isoformat()
+        conditions = ["(DATE(pr.next_review) <= ? OR pr.next_review IS NULL)"]
+        params: list[Any] = [today]
 
         if difficulty:
             conditions.append("p.difficulty = ?")

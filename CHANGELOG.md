@@ -20,6 +20,10 @@ All notable changes to DSAP will be documented here.
 - `dsap review` and `dsap list` showed raw `YYYY-MM-DD` dates for next
   review. Now displays human-readable relative strings: `Overdue by 3 days`,
   `Due today`, `In 7 days`.
+- `dsap review` did not show problems due today if their scheduled time
+  hadn't arrived yet (e.g. due at 23:00 but reviewing at 10:00). Due
+  detection now compares calendar dates instead of exact datetimes, so
+  anything due today appears immediately.
 
 ## [1.1.0] - 2026-05-08
 
