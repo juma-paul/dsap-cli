@@ -98,7 +98,9 @@ def cli(ctx: click.Context) -> None:
     "problem_set",
     help="Filter by problem set (e.g., blind75, neetcode150)",
 )
-def review(limit: int, difficulty: str, category: str, problem_set: str) -> None:
+def review(
+    limit: int, difficulty: str | None, category: str | None, problem_set: str | None
+) -> None:
     r"""Start a review session with due problems.
 
     Reviews problems that are due based on SM-2 scheduling.
@@ -212,7 +214,7 @@ def review(limit: int, difficulty: str, category: str, problem_set: str) -> None
     "problem_set",
     help="Filter by problem set (e.g., blind75, neetcode150)",
 )
-def next(difficulty: str, category: str, problem_set: str) -> None:
+def next(difficulty: str | None, category: str | None, problem_set: str | None) -> None:
     r"""Get the next new problem to practice.
 
     Shows a problem you have never attempted before. For scheduled
@@ -298,9 +300,9 @@ def next(difficulty: str, category: str, problem_set: str) -> None:
     "--limit", "-n", default=200, help="Maximum problems to show (default: 200)"
 )
 def list_problems(
-    difficulty: str,
-    category: str,
-    problem_set: str,
+    difficulty: str | None,
+    category: str | None,
+    problem_set: str | None,
     due: bool,
     limit: int,
 ) -> None:
@@ -553,7 +555,7 @@ def config(key: str, value: str, show_list: bool, reset: bool) -> None:
 def reset(
     problems: bool,
     progress: bool,
-    problem_set: str,
+    problem_set: str | None,
     reset_all: bool,
     yes: bool,
 ) -> None:
