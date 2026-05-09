@@ -8,7 +8,7 @@ Provides beautiful terminal output using Rich library:
 """
 
 import webbrowser
-from datetime import datetime
+from datetime import date
 
 from rich import box
 from rich.console import Console
@@ -137,8 +137,7 @@ def display_problem(
             f"  EF: {progress.easiness_factor:.2f} | Interval: {progress.interval} days"
         )
         if progress.next_review:
-            now = datetime.now()
-            delta = (progress.next_review - now).days
+            delta = (progress.next_review.date() - date.today()).days
             if delta < 0:
                 due_str = f"Overdue by {abs(delta)} day{'s' if abs(delta) != 1 else ''}"
             elif delta == 0:
@@ -372,12 +371,13 @@ def display_problem_list(
             ef = "-"
 
         if progress and progress.next_review:
-            now = datetime.now()
-            delta = (progress.next_review - now).days
+            delta = (progress.next_review.date() - date.today()).days
             if delta < 0:
                 due_text = f"[red]{abs(delta)}d late[/red]"
             elif delta == 0:
                 due_text = "[yellow]today[/yellow]"
+            elif delta == 1:
+                due_text = "[dim]tomorrow[/dim]"
             else:
                 due_text = f"[dim]in {delta}d[/dim]"
         else:

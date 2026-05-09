@@ -252,8 +252,7 @@ class SM2State:
             now = datetime.now()
         if self.next_review is None:
             return 0
-        delta = self.next_review - now
-        return delta.days
+        return (self.next_review.date() - now.date()).days
 
 
 def calculate_easiness_factor(current_ef: float, quality: int) -> float:

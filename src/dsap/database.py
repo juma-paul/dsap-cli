@@ -12,7 +12,7 @@ import os
 import sqlite3
 from collections.abc import Iterator
 from contextlib import contextmanager
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -251,9 +251,9 @@ class Database:
             params.append(problem_set)
 
         if due_only:
-            now = datetime.now().isoformat()
-            conditions.append("(pr.next_review <= ? OR pr.next_review IS NULL)")
-            params.append(now)
+            today = datetime.now().date().isoformat()
+            conditions.append("(DATE(pr.next_review) <= ? OR pr.next_review IS NULL)")
+            params.append(today)
 
         where_clause = "WHERE " + " AND ".join(conditions) if conditions else ""
         params.append(limit)
@@ -577,21 +577,21 @@ class Database:
             """).fetchone()
 
             # Due counts
-            now = datetime.now().isoformat()
-            week_later = (datetime.now() + timedelta(days=7)).isoformat()
+            today = date.today().isoformat()
+            week_later = (date.today() + timedelta(days=7)).isoformat()
 
             due_today = conn.execute(
                 """
                 SELECT COUNT(*) FROM progress
-                WHERE next_review <= ? OR next_review IS NULL
+                WHERE DATE(next_review) <= ? OR next_review IS NULL
             """,
-                (now,),
+                (today,),
             ).fetchone()[0]
 
             due_week = conn.execute(
                 """
                 SELECT COUNT(*) FROM progress
-                WHERE next_review <= ?
+                WHERE DATE(next_review) <= ? OR next_review IS NULL
             """,
                 (week_later,),
             ).fetchone()[0]
